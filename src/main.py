@@ -1,7 +1,7 @@
 import pygame
-from src import  player
+
 from src import constant
-from src import game
+from src.Game import Game
 
 pygame.init()
 
@@ -12,16 +12,16 @@ pygame.display.set_caption("GAME TITLE")
 pygame.display.set_icon(logo)
 
 clock = pygame.time.Clock()
-players = []
-for i in range (1,constant.NB_PLAYER+1):
-    players.append(player.player(i))
+
+
+game = Game()
 
 running = True
 
 while running:
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
             running = False
-    game.game(screen, players)
+            pygame.quit()
+
+    game.startGame(screen)

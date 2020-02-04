@@ -1,7 +1,7 @@
 import random
 from pygame.locals import *
 
-class combination(object):
+class Combination(object):
     def __init__(self, combi):
         self.length = len(combi)
         self.keys = combi
