@@ -84,7 +84,7 @@ class Game:
                     # Si c'est une touche du clavier, alors on regarde si elle est parmis les touches possibles des joueurs
                     for pl in self.players:
                         try:
-                            key = eval("K_" + event.unicode)
+                            key = eval("pygame.K_" + event.unicode)
                         except:
                             key = event.key
                         if pl.combi.keysValue.count(key) > 0:
