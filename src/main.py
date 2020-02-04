@@ -1,6 +1,7 @@
 import pygame
 
 from src import constant
+from src.Game import Game
 
 pygame.init()
 
@@ -12,11 +13,15 @@ pygame.display.set_icon(logo)
 
 clock = pygame.time.Clock()
 
+
+game = Game()
+
 running = True
 
 while running:
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
             running = False
+            pygame.quit()
+
+    game.startGame(screen)
