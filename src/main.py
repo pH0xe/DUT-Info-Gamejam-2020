@@ -1,21 +1,14 @@
 import pygame
 
-from src import constant
+from src import constant, windowstate
 from src.Menu import Menu
 from src.Credit import Credit
+from src.Settings import Settings
 
 pygame.init()
 
 screen = pygame.display.set_mode(constant.SCREEN_SIZE)
 logo = pygame.image.load('../assets/logo.png').convert_alpha()
-
-import os
-
-#pour executer le fichier du menu
-cmd = 'python menu.py'
-os.system(cmd)
-
-menu = Menu()
 
 running = True
 
@@ -24,5 +17,16 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
+    if windowstate.menu:
+        menu = Menu()
+        menu.startMenu(screen)
+    elif windowstate.play:
+        play = Play(screen)
+        play.startPlay(screen)
+    elif windowstate.settings:
+        settings = Settings(screen)
+        settings.startSettings(screen)
+    elif windowstate.credits:
+        credit = Credit(screen)
+        credit.startCredits(screen)
 
-    menu.startMenu(screen)

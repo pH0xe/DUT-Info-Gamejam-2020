@@ -3,21 +3,20 @@ import pygame
 from src import constant
 from src import windowstate
 
-class Credit():
-    def startCredits(self, screen):
-        logo = pygame.image.load('../assets/credit.jpg').convert_alpha()
-        fond = pygame.image.load("../assets/jul-feat.jpg")
-        fond = pygame.transform.scale(fond, (constant.SCREEN_SIZE))
+class Credit:
+    def __init__(self, screen):
+        self.bg = pygame.image.load("../assets/jul-feat.jpg").convert()
+        self.bg = pygame.transform.scale(self.bg, (constant.SCREEN_SIZE))
 
         pygame.display.set_caption("Crédits")
-        pygame.display.set_icon(logo)
+
+        screen.blit(self.bg, (0, 0))
+
+    def startCredits(self, screen):
 
         running = True
 
         while running:
-
-            screen.blit(fond, (0, 0))
-
             font = pygame.font.SysFont('Helvetic', 80)
             text_1 = font.render("Crédits", 1, (255, 255, 255))
             text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)

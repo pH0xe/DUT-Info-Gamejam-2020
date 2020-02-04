@@ -1,5 +1,5 @@
-menu = True
-jouer = False
-nomJoueurs = False
-parametres = False
-credits = False
+menu = False
+play = False
+highscore = False
+settings = False
+credits = True
