@@ -15,6 +15,17 @@ clock = pygame.time.Clock()
 
 running = True
 
+def addBouton(y):
+    rect = pygame.draw.rect(
+        screen,
+        (255, 0, 0),
+        pygame.Rect(constant.WIDTH // 2 - 150, y, 300, 50))
+
+def addText(text, y ):
+    text_1 = font.render(text, 1, (10, 10, 10))
+    text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, y)
+    screen.blit(text_1, text_1_pos)
+
 while running:
 
     for event in pygame.event.get():
@@ -23,51 +34,32 @@ while running:
             running = False
 
         ##titre du menu
-        font = pygame.font.SysFont('Verdana', 80)
+        font = pygame.font.SysFont('Helvetic', 80)
         text_1 = font.render("Menu", 1, (255, 255, 255))
         text_1_pos = (constant.WIDTH//2-text_1.get_rect().width//2, 100-text_1.get_rect().height//2)
         screen.blit(text_1, text_1_pos)
 
-        ##affichage des bouttons
-        rect = pygame.draw.rect(
-            screen,
-            (255, 0, 0),
-            pygame.Rect(constant.WIDTH//2-150, 200, 300, 50))
-        # Chargement et collage du text_1
+        #changement de la police
         font = pygame.font.SysFont('Helvetic', 50)
-        text_1 = font.render("Jouer", 1, (10, 10, 10))
-        text_1_pos = (constant.WIDTH//2-text_1.get_rect().width//2, 210)
-        screen.blit(text_1, text_1_pos)
+        ##affichage des bouttons
+        addBouton(200)
+        # Chargement et collage du text_1
+        addText("Jouer", 210)
 
         ##Boutton 2
-        rect = pygame.draw.rect(
-            screen,
-            (255, 0, 0),
-            pygame.Rect(constant.WIDTH//2-150, 300, 300, 50))
+        addBouton(300)
         # Chargement et collage du text_2
-        text_2 = font.render("Nom des joueurs", 1, (10, 10, 10))
-        text_2_pos = (constant.WIDTH//2-text_2.get_rect().width//2, 310)
-        screen.blit(text_2, text_2_pos)
+        addText("Nom des joueurs", 310)
 
         ##Boutton 3
-        rect = pygame.draw.rect(
-            screen,
-            (255, 0, 0),
-            pygame.Rect(constant.WIDTH//2-150, 400, 300, 50))
+        addBouton(400)
         # Chargement et collage du text_3
-        text_3 = font.render("Paramètres", 1, (10, 10, 10))
-        text_3_pos = (constant.WIDTH//2-text_3.get_rect().width//2, 410)
-        screen.blit(text_3, text_3_pos)
+        addText("Paramètres", 410)
 
         ##Boutton 4
-        rect = pygame.draw.rect(
-            screen,
-            (255, 0, 0),
-            pygame.Rect(constant.WIDTH//2-150, 500, 300, 50))
+        addBouton(500)
         # Chargement et collage du text_4
-        text_4 = font.render("Crédits", 1, (10, 10, 10))
-        text_4_pos = (constant.WIDTH//2-text_4.get_rect().width//2, 510)
-        screen.blit(text_4, text_4_pos)
+        addText("Crédits", 510)
 
         # Rafraichissement
         pygame.display.flip()
