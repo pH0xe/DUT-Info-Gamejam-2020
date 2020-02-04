@@ -33,7 +33,7 @@ class Menu:
             text_1 = font.render(text, 1, (10, 10, 10))
             text_1_pos = (x - self.image.get_rect().width // 2, y + 70)
         else:
-            self.image = pygame.Surface((300, 50))
+            self.image = pygame.Surface((width, height))
             self.image.fill(constant.RED)
             text_1 = font.render(text, 1, (10, 10, 10))
             text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, y + 10)
@@ -50,16 +50,19 @@ class Menu:
         screen.blit(text_1, text_1_pos)
 
         ##affichage des bouttons
-        self.addBouton(screen, "Jouer", None, constant.WIDTH // 2 - 150, 200, 300, 50)
+        self.addBouton(screen, "Jouer", None, constant.WIDTH // 2 - 200, 200, 400, 50)
+
+        ##Boutton 1
+        self.addBouton(screen, "Comment jouer ?", None, constant.WIDTH // 2 - 200, 300, 400, 50)
+
+        ##Boutton 2
+        self.addBouton(screen, "High-Score", None, constant.WIDTH // 2 - 200, 400, 400, 50)
 
         ##Boutton 3
-        self.addBouton(screen, "High-Score", None, constant.WIDTH // 2 - 150, 300, 300, 50)
-
-        ##Boutton 3
-        self.addBouton(screen, "Paramètres", None, constant.WIDTH // 2 - 150, 400, 300, 50)
+        self.addBouton(screen, "Paramètres", None, constant.WIDTH // 2 - 200, 500, 400, 50)
 
         ##Boutton 4
-        self.addBouton(screen, "Crédits", None, constant.WIDTH // 2 - 150, 500, 300, 50)
+        self.addBouton(screen, "Crédits", None, constant.WIDTH // 2 - 200, 600, 400, 50)
 
         # Rafraichissement
         pygame.display.flip()
