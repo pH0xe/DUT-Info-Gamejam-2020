@@ -22,6 +22,11 @@ class Pipe(pygame.sprite.Sprite):
         self.ball.moveLeft()
 
     def collide(self):
-        if self.rect.contains(self.ball.rect):
-            print('inside')
-        else: print('outside')
+        if not self.rect.contains(self.ball.rect):
+            if self.ball.rect.x < self.rect.x:
+                loser = 'left'
+            else:
+                loser = 'right'
+            return True, loser
+        else:
+            return False, None

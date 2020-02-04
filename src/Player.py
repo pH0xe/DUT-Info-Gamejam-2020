@@ -9,3 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.image.fill(color)
+        self.name = ''
+
+    def setName(self, name):
+        self.name = name
