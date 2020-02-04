@@ -1,6 +1,6 @@
-menu = True
+menu = False
 play = False
 notice = False
-highscore = False
+highscore = True
 settings = False
 credits = False
