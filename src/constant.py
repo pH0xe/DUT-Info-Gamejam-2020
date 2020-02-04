@@ -1,2 +1,11 @@
+from pygame.locals import *
+
 FPS = 30
 SCREEN_SIZE = WIDTH, HEIGHT = 1024, 768
+NB_PLAYER = 2
+PLAYER1 = ['z','q','s','d']
+PLAYER2 = ['UP','LEFT','DOWN','RIGHT']
+PLAYER1POS = (100,100)
+PLAYER2POS = (500,100)
+SCORE1POS = (100,200)
+SCORE2POS = (500,200)
