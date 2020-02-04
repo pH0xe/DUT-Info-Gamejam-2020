@@ -2,6 +2,7 @@ import pygame
 
 from pygame.locals import*
 from src import constant
+from src import windowstate
 
 pygame.init()
 pygame.font.init()
@@ -16,6 +17,27 @@ clock = pygame.time.Clock()
 
 running = True
 
+def clic(coord) :
+    """ Procédure appelée en cas de clic à la souris. Elle a pour effet d'afficher
+    un point de couleur (la couleur dépend du bouton souris utilisé) à l'endroit cliqué """
+    if (coord[0] >= (constant.WIDTH // 2 - 150)) and (coord[0] <= (constant.WIDTH // 2 + 150)):
+        if (coord[1] >= 200) and (coord[1] <= 250):
+            windowstate.jouer = True
+            windowstate.menu = False
+        elif  (coord[1] >= 300) and (coord[1] <= 350):
+            windowstate.nomJoueurs = True
+            windowstate.menu = False
+        elif  (coord[1] >= 400) and (coord[1] <= 450):
+            windowstate.parametres = True
+            windowstate.menu = False
+        elif  (coord[1] >= 500) and (coord[1] <= 550):
+            windowstate.credits = True
+            windowstate.menu = False
+
+    c=[255,255,0]
+    pygame.draw.circle(screen, c, coord, 5, 0)
+    pygame.display.flip()
+
 def addBouton(y, text):
     rect = pygame.draw.rect(
         screen,
@@ -24,12 +46,6 @@ def addBouton(y, text):
     text_1 = font.render(text, 1, (10, 10, 10))
     text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, y+10)
     screen.blit(text_1, text_1_pos)
-    for event in pygame.event.get():
-        if event.type == MOUSEBUTTONDOWN:
-            if rect.collidepoint(event.pos):
-                constant.text = True
-            print("if2")
-        print("constant."+text)
 
 
 ##titre du menu
@@ -61,4 +77,6 @@ while running:
         if event.type == pygame.QUIT:
             pygame.quit()
             running = False
+        if event.type == MOUSEBUTTONDOWN:
+            clic(event.dict['pos'])
 
