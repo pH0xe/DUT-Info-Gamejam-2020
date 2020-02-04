@@ -16,12 +16,15 @@ class Menu:
                 windowstate.play = True
                 windowstate.menu = False
             elif (coord[1] >= 300) and (coord[1] <= 350):
-                windowstate.highscore = True
+                windowstate.notice = True
                 windowstate.menu = False
             elif (coord[1] >= 400) and (coord[1] <= 450):
-                windowstate.settings = True
+                windowstate.highscore = True
                 windowstate.menu = False
             elif (coord[1] >= 500) and (coord[1] <= 550):
+                windowstate.settings = True
+                windowstate.menu = False
+            elif (coord[1] >= 600) and (coord[1] <= 650):
                 windowstate.credits = True
                 windowstate.menu = False
 
