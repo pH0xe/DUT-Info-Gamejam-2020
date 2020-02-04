@@ -30,10 +30,9 @@ class Player(pygame.sprite.Sprite):
         self.name = name
 
     def setRandomHead(self):
-        id = random.randrange(1, 4)
-        path = '../assets/player' + str(id) + '.png'
-        self.image = pygame.image.load(path)
+        id = random.randrange(1, 5)
+        path = '../assets/players/player' + str(id) + '.png'
+        self.image = pygame.image.load(path).convert_alpha()
         self.image = pygame.transform.scale(self.image, (200, 200))
-        print(self.keys)
-        if self.id == "constant.PLAYER2":
+        if self.id == "constant.PLAYER1":
             self.image = pygame.transform.flip(self.image, True, False)

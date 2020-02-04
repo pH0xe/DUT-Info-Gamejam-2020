@@ -59,7 +59,7 @@ class Game:
                     winnerName = self.player1.name
                     loserName = self.player2.name
 
-                font = pygame.font.Font(None, 40)
+                font = pygame.font.SysFont('Arial', 40)
                 textWinner = font.render("Gagnant: " + winnerName, True, constant.LIGHT_BLUE)
                 winnerRect = textWinner.get_rect()
                 winnerRect.center = screen.get_rect().center
@@ -76,6 +76,13 @@ class Game:
                 self.all_sprite.draw(screen)
                 screen.blit(self.pipe.image, self.pipe.rect)
                 screen.blit(self.pipe.ball.image, self.pipe.ball.rect)
+
+                for pl in self.players:
+                    txt = ""
+                    for caract in pl.combi.goal:
+                        txt = txt + " " + caract
+                    text = font.render(txt, True, constant.BLACK)
+                    screen.blit(text, pl.pos)
 
             pygame.display.flip()
 
@@ -106,13 +113,3 @@ class Game:
                                 self.pipe.moveLeft()
                     count = -1
                     i = 0
-                rect = pygame.draw.rect(screen, (0, 0, 0), (0, 0, constant.WIDTH, constant.HEIGHT), 0)
-                for pl in self.players:
-                    txt = ""
-                    for caract in pl.combi.goal:
-                        txt = txt + " " + caract
-                    text = font.render(txt, 1, (255, 255, 255))
-                    screen.blit(text, pl.pos)
-                    text = font.render(str(pl.combi.score), 1, (255, 255, 255))
-                    screen.blit(text, pl.scorePos)
-                pygame.display.flip()

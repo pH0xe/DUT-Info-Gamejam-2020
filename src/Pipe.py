@@ -7,11 +7,11 @@ from src.Ball import Ball
 class Pipe(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load('../assets')
+        self.image = pygame.image.load('../assets/pipe.png').convert_alpha()
+        self.image = pygame.transform.scale(self.image, (630, 60))
         self.rect = self.image.get_rect()
-        self.rect.x = 210
-        self.rect.y = 90
-        self.image.fill(constant.LIGHT_RED)
+        self.rect.x = 205
+        self.rect.y = 140
         self.ball = Ball()
         self.ball.rect.center = self.rect.center
 
