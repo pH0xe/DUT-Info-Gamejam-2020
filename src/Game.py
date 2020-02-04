@@ -9,11 +9,16 @@ class Game:
     def __init__(self):
         self.all_sprite = pygame.sprite.Group()
 
-        self.player1 = Player(150, 100, constant.LIGHT_BLUE)
+        self.player1 = Player(150, 100, constant.LIGHT_BLUE, 1)
         self.player1.setName('1')
 
-        self.player2 = Player(824, 100, constant.LIGHT_GREEN)
+        self.player2 = Player(824, 100, constant.LIGHT_GREEN, 2)
         self.player2.setName('2')
+
+        self.players = []
+        self.players.append(self.player1)
+        self.players.append(self.player2)
+
         self.pipe = Pipe()
 
         self.all_sprite.add(self.player1)
@@ -21,7 +26,14 @@ class Game:
 
     def startGame(self, screen):
         running = True
+        for player in self.players:
+            player.combi.newRandom(4)
 
+        count = -1
+        i = 0
+
+        key = 0
+        font = pygame.font.Font(None, 24)
         while running:
             result = finish, loser = self.pipe.collide()
 
@@ -56,7 +68,6 @@ class Game:
                 loserRect.center = winnerRect.center
                 loserRect.y = loserRect.y + 50
                 screen.blit(textLoser, loserRect)
-
             else:
                 self.all_sprite.draw(screen)
                 screen.blit(self.pipe.image, self.pipe.rect)
@@ -70,7 +81,34 @@ class Game:
                     running = False
 
                 elif event.type == pygame.KEYDOWN and finish == False:
-                    if event.key == pygame.K_q:
-                        self.pipe.moveRight()
-                    elif event.key == pygame.K_m:
-                        self.pipe.moveLeft()
+                    # Si c'est une touche du clavier, alors on regarde si elle est parmis les touches possibles des joueurs
+                    for pl in self.players:
+                        try:
+                            key = eval("K_" + event.unicode)
+                        except:
+                            key = event.key
+                        if pl.combi.keysValue.count(key) > 0:
+                            count = i  # On prend le numéro du joueur dans players à qui appartient la touche
+                        i += 1
+                    if count != -1:  # Si la touche appartient à un joueur, alors on appelle tried pour essayé la combinaison
+                        self.players[count].combi.tried(key)
+                        if self.players[count].combi.state == -1:
+                            self.players[count].combi.newRandom(4)  # newRandom(4) 4 = taille de la combinaison à changer
+                        elif self.players[count].combi.state == 1:
+                            self.players[count].combi.newRandom(4)
+                            if count == 0:
+                                self.pipe.moveRight()
+                            else:
+                                self.pipe.moveLeft()
+                    count = -1
+                    i = 0
+                rect = pygame.draw.rect(screen, (0, 0, 0), (0, 0, constant.WIDTH, constant.HEIGHT), 0)
+                for pl in self.players:
+                    txt = ""
+                    for caract in pl.combi.goal:
+                        txt = txt + " " + caract
+                    text = font.render(txt, 1, (255, 255, 255))
+                    screen.blit(text, pl.pos)
+                    text = font.render(str(pl.combi.score), 1, (255, 255, 255))
+                    screen.blit(text, pl.scorePos)
+                pygame.display.flip()
