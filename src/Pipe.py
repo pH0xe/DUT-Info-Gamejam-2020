@@ -7,7 +7,7 @@ from src.Ball import Ball
 class Pipe(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.Surface((604, 70))
+        self.image = pygame.image.load('../assets')
         self.rect = self.image.get_rect()
         self.rect.x = 210
         self.rect.y = 90
