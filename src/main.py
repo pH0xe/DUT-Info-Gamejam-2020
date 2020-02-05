@@ -28,3 +28,9 @@ while running:
             pygame.quit()
 
     game.startGame(screen)
+
+    # Wallpaper trpo gentil
+    # Fretless bizarre
+    # Run Amok stressant
+    # Funk Game Loop
+    # Welcome to the Show
