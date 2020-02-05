@@ -19,6 +19,9 @@ game = Game()
 running = True
 
 while running:
+    son = pygame.mixer.Sound("../assets/sound/backgroundmusic.wav")
+    son.play()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
