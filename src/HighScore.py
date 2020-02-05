@@ -2,40 +2,47 @@ import pygame
 
 from src import constant
 from src import windowstate
+from src.utils import getBestPlayer, addBouton
+
 
 class HighScore:
     def __init__(self, screen):
-        self.bg = pygame.image.load("../assets/jul-feat.jpg").convert()
-        self.bg = pygame.transform.scale(self.bg, (constant.SCREEN_SIZE))
+        self.bg = pygame.Surface(constant.SCREEN_SIZE)
+        self.bg.fill(constant.LIGHT_BLUE)
 
-        pygame.display.set_caption("High-Score")
-
-        screen.blit(self.bg, (0, 0))
-        ## Création d'une liste, il faut recuperer les high score et les ordonner
-        self.joueurs = [('JoJo', 1523), ('Fanny', 1500), ('Jul', 294), ('Hérvé', 12)]
+        # Création d'une liste, il faut recuperer les high score et les ordonner
+        self.joueurs = getBestPlayer()
 
     def startHighScore(self, screen):
 
-        running = True
-
-        font = pygame.font.SysFont('Helvetic', 80)
-        text_1 = font.render("High-Score", 1, (255, 255, 255))
+        screen.blit(self.bg, (0, 0))
+        font = pygame.font.Font(None, 80)
+        text_1 = font.render("High-Score", 1, constant.WHITE)
         text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)
         screen.blit(text_1, text_1_pos)
 
+        menu = addBouton(screen, 'Menu', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
+
         y = 0
-        for self.joueur in self.joueurs:
-            print(self.joueur[1])
-            text_nom = font.render(self.joueur[0], 1, (255, 255, 255))
-            text_nom_pos = (constant.WIDTH // 2 - text_nom.get_rect().width // 2 - 100, 200 - text_nom.get_rect().height // 2 + y)
-            text_score = font.render(str(self.joueur[1]), 1, (255, 255, 255))
-            text_score_pos = (constant.WIDTH // 2 - text_score.get_rect().width // 2 + 100, 200 - text_score.get_rect().height // 2 + y)
+        font = pygame.font.Font(None, 40)
+        for joueur in self.joueurs:
+            text_nom = font.render(joueur['name'], 1, constant.WHITE)
+            rect_nom = text_nom.get_rect()
+            rect_nom.x = 300
+            rect_nom.y = 200 - text_nom.get_rect().height // 2 + y
+
+            text_score = font.render(str(joueur['highscore']), 1, constant.WHITE)
+            rect_score = text_score.get_rect()
+            rect_score.x = rect_nom.left + 100
+            rect_score.y = rect_nom.y
+
             y += 100
-            screen.blit(text_nom, text_nom_pos)
-            screen.blit(text_score, text_score_pos)
+            screen.blit(text_nom, rect_nom)
+            screen.blit(text_score, rect_score)
 
         pygame.display.flip()
 
+        running = True
         while running:
 
             for event in pygame.event.get():
@@ -43,3 +50,9 @@ class HighScore:
                     pygame.quit()
                     running = False
                     windowstate.highscore = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    pos = pygame.mouse.get_pos()
+                    if menu.collidepoint(pos):
+                        windowstate.menu = True
+                        windowstate.highscore = False
+                        running = False

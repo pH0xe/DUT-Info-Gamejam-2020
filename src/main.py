@@ -6,35 +6,39 @@ from src.Credit import Credit
 from src.Settings import Settings
 from src.Notice import Notice
 from src.HighScore import HighScore
+from src.Game import Game
 
 pygame.init()
 
 screen = pygame.display.set_mode(constant.SCREEN_SIZE)
 logo = pygame.image.load('../assets/logo.png').convert_alpha()
 
+pygame.display.set_caption("GAME TITLE")
+pygame.display.set_icon(logo)
+
+clock = pygame.time.Clock()
+
+
+game = Game()
+menu = Menu()
+notice = Notice()
+highscore = HighScore(screen)
+settings = Settings(screen)
+credit = Credit(screen)
+
 running = True
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-            pygame.quit()
+while windowstate.credits or windowstate.highscore or windowstate.menu or windowstate.notice or windowstate.play or windowstate.settings:
     if windowstate.menu:
-        menu = Menu()
         menu.startMenu(screen)
     elif windowstate.play:
-        game = Game(screen)
         game.startGame(screen)
     elif windowstate.notice:
-        notice = Notice(screen)
         notice.startNotice(screen)
     elif windowstate.highscore:
-        highscore = HighScore(screen)
         highscore.startHighScore(screen)
     elif windowstate.settings:
-        settings = Settings(screen)
         settings.startSettings(screen)
     elif windowstate.credits:
-        credit = Credit(screen)
         credit.startCredits(screen)
 
