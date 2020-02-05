@@ -1,37 +1,25 @@
 import pygame
-from src import constant
+from src import constant, windowstate
 from src.InputBox import InputBox
-
+from src.utils import addBouton
 
 class NamePlayer:
     def __init__(self):
-        self.menu = pygame.Surface((30, 30))
-        self.menu_rect = self.menu.get_rect()
-        self.menu_rect.x = 50
-        self.menu_rect.y = 50
-        self.menu.fill(constant.RED)
-        self.jouer = pygame.Surface((200, 80))
-        self.jouer_rect = self.jouer.get_rect()
-        self.jouer_rect.x = constant.WIDTH // 2 - self.jouer_rect.width // 2
-        self.jouer_rect.y = 7 * constant.HEIGHT // 8 - self.jouer_rect.height // 2
-        self.jouer.fill(constant.RED)
         self.inputBox1 = InputBox(constant.WIDTH // 2, 3 * constant.HEIGHT // 8 - 30, 200, 60)
         self.inputBox2 = InputBox(constant.WIDTH // 2, 5 * constant.HEIGHT // 8 - 30, 200, 60)
 
+        self.bg = pygame.Surface(constant.SCREEN_SIZE)
+        self.bg.fill(constant.LIGHT_BLUE)
+        self.rect = self.bg.get_rect()
 
 
     def startNamePlayer(self, screen):
-        running = True
-        font = pygame.font.SysFont('Helvetic', 50)
-        bg = pygame.Surface(constant.SCREEN_SIZE)
-        bgRect = bg.get_rect()
-        bg.fill(constant.BLACK)
-        screen.blit(bg, bgRect)
+        font = pygame.font.Font(None, 50)
 
+        running = True
         while running:
-            screen.blit(bg, bgRect)
-            screen.blit(self.menu, self.menu_rect)
-            screen.blit(self.jouer, self.jouer_rect)
+            screen.blit(self.bg, self.rect)
+
             text_titre = font.render("Entrez le nom des joueurs", 1, constant.WHITE)
             text_titre_pos = (constant.WIDTH // 2 - text_titre.get_rect().width // 2, constant.HEIGHT // 8 - text_titre.get_rect().height // 2)
             screen.blit(text_titre, text_titre_pos)
@@ -45,12 +33,32 @@ class NamePlayer:
             self.inputBox1.draw(screen)
             self.inputBox2.draw(screen)
 
+            play = addBouton(screen, 'Commencer', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
+            menu = addBouton(screen, None, 'back', 15, 15, 30, 30)
+
+            pygame.display.flip()
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                    pygame.quit()
                 self.inputBox1.h_event(event)
                 self.inputBox1.draw(screen)
                 self.inputBox2.h_event(event)
                 self.inputBox2.draw(screen)
-            pygame.display.flip()
+
+                if event.type == pygame.QUIT:
+                    running = False
+                    windowstate.playerName = False
+                    pygame.quit()
+
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    pos = pygame.mouse.get_pos()
+                    if menu.collidepoint(pos):
+                        windowstate.menu = True
+                        windowstate.playerName = False
+                        running = False
+
+                    elif play.collidepoint(pos):
+                        if self.inputBox1.text != '' and self.inputBox2.text != '':
+                            windowstate.name1 = self.inputBox1.text
+                            windowstate.name2 = self.inputBox2.text
+                            windowstate.play = True
+                            windowstate.playerName = False
+                            running = False

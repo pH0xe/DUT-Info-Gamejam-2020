@@ -40,7 +40,7 @@ class Menu:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
                     if play.collidepoint(pos):
-                        windowstate.play = True
+                        windowstate.playerName = True
                         windowstate.menu = False
                         running = False
 

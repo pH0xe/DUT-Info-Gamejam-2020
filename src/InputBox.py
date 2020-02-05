@@ -9,7 +9,7 @@ class InputBox:
         self.text = text
         self.active = False
         self.font = pygame.font.Font(None, 50)
-        self.color = constant.LIGHT_BLUE
+        self.color = constant.BLACK
         self.txt_surface = self.font.render(text, True, self.color)
 
     def h_event(self, event):
@@ -21,7 +21,7 @@ class InputBox:
         if self.active:
             self.color = constant.WHITE
         else:
-            self.color = constant.LIGHT_BLUE
+            self.color = constant.BLACK
         if event.type == pygame.KEYDOWN:
             if self.active:
                 if event.key == pygame.K_RETURN:

@@ -30,7 +30,7 @@ credit = Credit(screen)
 
 running = True
 
-while windowstate.credits or windowstate.highscore or windowstate.menu or windowstate.notice or windowstate.play or windowstate.settings:
+while windowstate.credits or windowstate.highscore or windowstate.menu or windowstate.notice or windowstate.play or windowstate.settings or windowstate.playerName:
     if windowstate.menu:
         menu.startMenu(screen)
     elif windowstate.play:
@@ -43,4 +43,6 @@ while windowstate.credits or windowstate.highscore or windowstate.menu or window
         settings.startSettings(screen)
     elif windowstate.credits:
         credit.startCredits(screen)
+    elif windowstate.playerName:
+        namePlayer.startNamePlayer(screen)
 
