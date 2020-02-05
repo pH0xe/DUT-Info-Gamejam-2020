@@ -1,8 +1,9 @@
+import random
+
 import pygame
 
 from src import constant
 from src.Conbination import Combination
-
 
 
 class Player(pygame.sprite.Sprite):
@@ -23,5 +24,15 @@ class Player(pygame.sprite.Sprite):
         self.scoreid = "constant.SCORE" + str(number) + "POS"
         self.scorePos = eval(self.scoreid)
 
+        self.setRandomHead()
+
     def setName(self, name):
         self.name = name
+
+    def setRandomHead(self):
+        id = random.randrange(1, 5)
+        path = '../assets/players/player' + str(id) + '.png'
+        self.image = pygame.image.load(path).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        if self.id == "constant.PLAYER1":
+            self.image = pygame.transform.flip(self.image, True, False)
