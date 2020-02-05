@@ -16,19 +16,21 @@ class NamePlayer:
     def startNamePlayer(self, screen):
         font = pygame.font.Font(None, 50)
 
+        screen.blit(self.bg, self.rect)
+
+        text_titre = font.render("Entrez le nom des joueurs", 1, constant.WHITE)
+        text_titre_pos = (constant.WIDTH // 2 - text_titre.get_rect().width // 2,
+                          constant.HEIGHT // 8 - text_titre.get_rect().height // 2)
+        screen.blit(text_titre, text_titre_pos)
+        text_j1 = font.render("Joueur 1", 1, constant.WHITE)
+        text_j1_pos = (constant.WIDTH // 4, 3 * constant.HEIGHT // 8 - text_j1.get_rect().height // 2)
+        screen.blit(text_j1, text_j1_pos)
+        text_j2 = font.render("Joueur 2", 1, constant.WHITE)
+        text_j2_pos = (constant.WIDTH // 4, 5 * constant.HEIGHT // 8 - text_j2.get_rect().height // 2)
+        screen.blit(text_j2, text_j2_pos)
+
         running = True
         while running:
-            screen.blit(self.bg, self.rect)
-
-            text_titre = font.render("Entrez le nom des joueurs", 1, constant.WHITE)
-            text_titre_pos = (constant.WIDTH // 2 - text_titre.get_rect().width // 2, constant.HEIGHT // 8 - text_titre.get_rect().height // 2)
-            screen.blit(text_titre, text_titre_pos)
-            text_j1 = font.render("Joueur 1", 1, constant.WHITE)
-            text_j1_pos = (constant.WIDTH // 4, 3 * constant.HEIGHT // 8 - text_j1.get_rect().height // 2)
-            screen.blit(text_j1, text_j1_pos)
-            text_j2 = font.render("Joueur 2", 1, constant.WHITE)
-            text_j2_pos = (constant.WIDTH // 4, 5 * constant.HEIGHT // 8 - text_j2.get_rect().height // 2)
-            screen.blit(text_j2, text_j2_pos)
 
             self.inputBox1.draw(screen)
             self.inputBox2.draw(screen)
@@ -62,3 +64,9 @@ class NamePlayer:
                             windowstate.play = True
                             windowstate.playerName = False
                             running = False
+                        else:
+                            font_mess = pygame.font.Font(None, 30)
+                            text = font_mess.render("Vous n'avez pas rentré tous les noms", 1, constant.RED)
+                            text_pos = (constant.WIDTH // 2 - text.get_rect().width // 2, constant.HEIGHT - 150)
+                            screen.blit(text, text_pos)
+                            pygame.display.flip()
