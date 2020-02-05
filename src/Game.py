@@ -10,10 +10,10 @@ class Game:
     def __init__(self):
         self.all_sprite = pygame.sprite.Group()
 
-        self.player1 = Player(150, 100, constant.LIGHT_BLUE, 1)
+        self.player1 = Player(10, 0, constant.LIGHT_BLUE, 1)
         self.player1.setName('1')
 
-        self.player2 = Player(824, 100, constant.LIGHT_GREEN, 2)
+        self.player2 = Player(824, 0, constant.LIGHT_GREEN, 2)
         self.player2.setName('2')
 
         self.players = []
