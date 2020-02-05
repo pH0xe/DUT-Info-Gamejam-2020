@@ -23,8 +23,8 @@ while running:
         menu = Menu()
         menu.startMenu(screen)
     elif windowstate.play:
-        play = Play(screen)
-        play.startPlay(screen)
+        game = Game(screen)
+        game.startGame(screen)
     elif windowstate.notice:
         notice = Notice(screen)
         notice.startNotice(screen)
