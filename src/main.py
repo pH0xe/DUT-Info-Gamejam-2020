@@ -2,6 +2,7 @@ import pygame
 
 from src import constant
 from src.Game import Game
+from src.NamePlayer import NamePlayer
 
 pygame.init()
 
@@ -15,6 +16,7 @@ clock = pygame.time.Clock()
 
 
 game = Game()
+namePlayer = NamePlayer()
 
 running = True
 
@@ -24,4 +26,4 @@ while running:
             running = False
             pygame.quit()
 
-    game.startGame(screen)
+    namePlayer.startNamePlayer(screen)
