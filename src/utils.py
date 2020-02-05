@@ -10,22 +10,27 @@ def addBouton(screen, text, icon, x, y, width, height):
     if icon:
         image = pygame.image.load("../assets/" + icon + ".png")
         image = pygame.transform.scale(image, (width, height))
-        text_1 = font.render(text, 1, (10, 10, 10))
-        text_1_pos = (x - image.get_rect().width // 2, y + 70)
         rect = image.get_rect()
         rect.x = x
         rect.y = y
+
+        text_1 = font.render(text, 1, constant.BLACK)
+        rect_text = text_1.get_rect()
+
+        rect_text.center = rect.center
+        rect_text.y = rect.y + rect.height + 10
+
     else:
         image = pygame.Surface((width, height))
         image.fill(constant.RED)
-        text_1 = font.render(text, 1, (10, 10, 10))
-        text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, y + 10)
+        text_1 = font.render(text, 1, constant.BLACK)
+        rect_text = (constant.WIDTH // 2 - text_1.get_rect().width // 2, y + 10)
         rect = image.get_rect()
         rect.x = x
         rect.y = y
 
     screen.blit(image, rect)
-    screen.blit(text_1, text_1_pos)
+    screen.blit(text_1, rect_text)
     return rect
 
 def getBestPlayer():
@@ -56,10 +61,8 @@ def toggleSound():
 
     if active:
         data['sound'][0]['active'] = 0
-        pygame.mixer.music.stop()
     else:
         data['sound'][0]['active'] = 1
-        pygame.mixer.music.play()
 
     with open('../jsonFile/config.json', "w") as jsonFile:
         json.dump(data, jsonFile)

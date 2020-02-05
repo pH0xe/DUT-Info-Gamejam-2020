@@ -31,7 +31,7 @@ credit = Credit(screen)
 with open('../jsonFile/config.json') as json_file:
     data = json.load(json_file)
 
-pygame.mixer.music.load('../assets/sound/music.mp3')
+pygame.mixer.music.load('../assets/sound/music.ogg')
 pygame.mixer.music.set_volume(0.03)
 
 if data['music'][0]['active']:

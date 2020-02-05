@@ -3,7 +3,7 @@ import pygame
 from src import constant, windowstate
 from src.Pipe import Pipe
 from src.Player import Player
-from src.utils import addBouton
+from src.utils import addBouton, isSoundOn
 
 
 class Game:
@@ -45,6 +45,10 @@ class Game:
             result = finish, loser = self.pipe.collide()
 
             if finish:
+                applause = pygame.mixer.Sound('../assets/sound/applause.ogg')
+                applause.set_volume(0.02)
+                if isSoundOn():
+                    applause.play()
                 gameOver = pygame.Surface(constant.SCREEN_SIZE)
                 gameOverRect = gameOver.get_rect()
                 gameOver.fill(constant.BLACK)
@@ -112,8 +116,16 @@ class Game:
                     if count != -1:  # Si la touche appartient à un joueur, alors on appelle tried pour essayé la combinaison
                         self.players[count].combi.tried(key)
                         if self.players[count].combi.state == -1:
+                            error = pygame.mixer.Sound('../assets/sound/error.ogg')
+                            error.set_volume(0.02)
+                            if isSoundOn():
+                                error.play()
                             self.players[count].combi.newRandom(4)  # newRandom(4) 4 = taille de la combinaison à changer
                         elif self.players[count].combi.state == 1:
+                            error = pygame.mixer.Sound('../assets/sound/blow.ogg')
+                            error.set_volume(0.4)
+                            if isSoundOn():
+                                error.play()
                             self.players[count].combi.newRandom(4)
                             if count == 0:
                                 self.pipe.moveRight()
