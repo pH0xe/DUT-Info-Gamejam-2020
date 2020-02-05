@@ -11,18 +11,27 @@ class Notice:
         self.bg = pygame.transform.scale(self.bg, (constant.SCREEN_SIZE))
         self.bg.fill(constant.LIGHT_BLUE)
 
+    def addText(self, screen, font, texte, y):
+        text_1 = font.render(texte, 1, (255, 255, 255))
+        text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, y - text_1.get_rect().height // 2)
+        screen.blit(text_1, text_1_pos)
+
     def startNotice(self, screen):
 
         screen.blit(self.bg, (0, 0))
 
         font = pygame.font.SysFont('Helvetic', 80)
-        text_1 = font.render("Notice", 1, (255, 255, 255))
-        text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)
-        screen.blit(text_1, text_1_pos)
+        self.addText(screen, font, "Notice", 100)
 
-        text_2 = font.render("Si tu sais pas jouer t'es nul", 1, (255, 255, 255))
-        text_2_pos = (constant.WIDTH // 2 - text_2.get_rect().width // 2, 200 - text_2.get_rect().height // 2)
-        screen.blit(text_2, text_2_pos)
+        font = pygame.font.SysFont('Helvetic', 40)
+        self.addText(screen, font, "Le principe est simple :", 200)
+        self.addText(screen, font, "faire manger le cafard à son adversaire", 250)
+        self.addText(screen, font, "Pour ça, il faut enchainer une combinaison de touches", 320)
+        self.addText(screen, font, "Le joueur de gauche utilisera les touches : Z, Q, S et D", 370)
+        self.addText(screen, font, "Le joueur de droite utilisera les flèches : haut, bas, droite et gauche", 420)
+
+        self.addText(screen, font, "Celui qui réussi à faire gober le cafard à l'autre l'emporte", 500)
+
 
         menu = addBouton(screen, 'Menu', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
 
