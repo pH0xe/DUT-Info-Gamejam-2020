@@ -23,6 +23,9 @@ class Player(pygame.sprite.Sprite):
         self.pos = eval(self.posid)
         self.scoreid = "constant.SCORE" + str(number) + "POS"
         self.scorePos = eval(self.scoreid)
+        self.success = 0
+        self.malus = False  # liste des malus : activé si True
+        self.bonus = 0 # donne un malus si egal à 5
 
         self.setRandomHead()
 
@@ -36,3 +39,6 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (200, 200))
         if self.id == "constant.PLAYER1":
             self.image = pygame.transform.flip(self.image, True, False)
+
+    def addRandomMalus(self):
+        self.malus = True
