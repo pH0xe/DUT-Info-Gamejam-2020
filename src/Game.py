@@ -1,8 +1,9 @@
 import pygame
 
-from src import constant
+from src import constant, windowstate
 from src.Pipe import Pipe
 from src.Player import Player
+from src.utils import addBouton
 
 
 class Game:
@@ -24,17 +25,20 @@ class Game:
         self.all_sprite.add(self.player1)
         self.all_sprite.add(self.player2)
 
+        self.bg = pygame.Surface(constant.SCREEN_SIZE)
+        self.bg.fill(constant.LIGHT_BLUE)
+        self.rect = self.bg.get_rect()
+
     def startGame(self, screen):
-        running = True
         for player in self.players:
             player.combi.newRandom(4)
-
         count = -1
         i = 0
-
         key = 0
-        font = pygame.font.Font(None, 24)
+
+        running = True
         while running:
+
             result = finish, loser = self.pipe.collide()
 
             if finish:
@@ -69,16 +73,28 @@ class Game:
                 loserRect.y = loserRect.y + 50
                 screen.blit(textLoser, loserRect)
             else:
+                screen.blit(self.bg, self.rect)
+                menu = addBouton(screen, None, 'back', 15, 15, 30, 30)
                 self.all_sprite.draw(screen)
                 screen.blit(self.pipe.image, self.pipe.rect)
                 screen.blit(self.pipe.ball.image, self.pipe.ball.rect)
 
+                font = pygame.font.Font(None, 24)
+                for pl in self.players:
+                    txt = ""
+                    for caract in pl.combi.goal:
+                        txt = txt + " " + caract
+                    text = font.render(txt, 1, (255, 255, 255))
+                    screen.blit(text, pl.pos)
+                    text = font.render(str(pl.combi.score), 1, (255, 255, 255))
+                    screen.blit(text, pl.scorePos)
             pygame.display.flip()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     running = False
+                    windowstate.play = False
 
                 elif event.type == pygame.KEYDOWN and finish == False:
                     # Si c'est une touche du clavier, alors on regarde si elle est parmis les touches possibles des joueurs
@@ -102,13 +118,10 @@ class Game:
                                 self.pipe.moveLeft()
                     count = -1
                     i = 0
-                rect = pygame.draw.rect(screen, (0, 0, 0), (0, 0, constant.WIDTH, constant.HEIGHT), 0)
-                for pl in self.players:
-                    txt = ""
-                    for caract in pl.combi.goal:
-                        txt = txt + " " + caract
-                    text = font.render(txt, 1, (255, 255, 255))
-                    screen.blit(text, pl.pos)
-                    text = font.render(str(pl.combi.score), 1, (255, 255, 255))
-                    screen.blit(text, pl.scorePos)
-                pygame.display.flip()
+
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    pos = pygame.mouse.get_pos()
+                    if menu.collidepoint(pos):
+                        windowstate.menu = True
+                        windowstate.play = False
+                        running = False
