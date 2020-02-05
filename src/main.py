@@ -19,8 +19,6 @@ game = Game()
 running = True
 
 while running:
-    son = pygame.mixer.Sound("../assets/sound/backgroundmusic.wav")
-    son.play()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -28,9 +26,3 @@ while running:
             pygame.quit()
 
     game.startGame(screen)
-
-    # Wallpaper trpo gentil
-    # Fretless bizarre
-    # Run Amok stressant
-    # Funk Game Loop
-    # Welcome to the Show
