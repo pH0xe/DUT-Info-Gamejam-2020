@@ -16,9 +16,13 @@ class Menu:
 
        ##titre du menu
         font = pygame.font.SysFont('Helvetic', 80)
+
+        name = pygame.image.load("../assets/name/name.png")
+        screen.blit(name, (constant.WIDTH // 2 - name.get_rect().width // 2, 100 - name.get_rect().height // 2))
+
         text_1 = font.render("Menu", 1, (255, 255, 255))
-        text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)
-        screen.blit(text_1, text_1_pos)
+        #text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)
+        #screen.blit(text_1, text_1_pos)
 
         play = addBouton(screen, "Jouer", None, constant.WIDTH // 2 - 200, 200, 400, 50)
         instruction = addBouton(screen, "Comment jouer ?", None, constant.WIDTH // 2 - 200, 300, 400, 50)
