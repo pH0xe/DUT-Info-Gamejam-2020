@@ -30,10 +30,19 @@ class Notice:
         self.addText(screen, font, "Le joueur de gauche utilisera les touches : Z, Q, S et D", 370)
         self.addText(screen, font, "Le joueur de droite utilisera les flèches : haut, bas, droite et gauche", 420)
 
-        self.addText(screen, font, "Celui qui réussi à faire gober le cafard à l'autre l'emporte", 500)
+        self.addText(screen, font, "Celui qui réussi à souffler dans le tuyau pour ", 500)
+        self.addText(screen, font, "faire gober le cafard à l'autre l'emporte", 550)
 
 
         menu = addBouton(screen, 'Menu', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
+
+        bug1 = pygame.image.load("../assets/bigBug.png")
+        bug1 = pygame.transform.rotate(bug1, -90)
+
+        screen.blit(bug1, (80, 50))
+        screen.blit(bug1, ((constant.WIDTH - 213), 50))
+        screen.blit(bug1, (80, (constant.HEIGHT - 245)))
+        screen.blit(bug1, ((constant.WIDTH - 180), (constant.HEIGHT - 245)))
 
         pygame.display.flip()
 

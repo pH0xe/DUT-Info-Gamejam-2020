@@ -27,7 +27,7 @@ class Credit:
         font = pygame.font.SysFont('Helvetic', 40)
         self.addText(screen, font, "Utilisation du langage Python et de la bibliothèque Pygame", 150)
         self.addText(screen, font, "L'équipe Semi :", 250)
-        self.addText(screen, font, "- Martin, notre game director", 300)
+        self.addText(screen, font, "- Martin, game director", 300)
         self.addText(screen, font, "- Fanny", 350)
         self.addText(screen, font, "- Marine", 400)
         self.addText(screen, font, "- Julien", 450)
@@ -37,6 +37,12 @@ class Credit:
         self.addText(screen, font, "Musique : Incompetech", 620)
 
         menu = addBouton(screen, 'Menu', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
+
+        bug1 = pygame.image.load("../assets/bigBug.png")
+        bug1 = pygame.transform.rotate(bug1, -90)
+
+        screen.blit(bug1, (120, 300))
+        screen.blit(bug1, (740, 300))
 
         pygame.display.flip()
 

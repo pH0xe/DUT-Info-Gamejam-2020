@@ -40,6 +40,12 @@ class HighScore:
             screen.blit(text_nom, rect_nom)
             screen.blit(text_score, rect_score)
 
+        bug1 = pygame.image.load("../assets/bigBug.png")
+        bug1 = pygame.transform.rotate(bug1, -90)
+
+        screen.blit(bug1, (120, 300))
+        screen.blit(bug1, (740, 300))
+
         pygame.display.flip()
 
         running = True
