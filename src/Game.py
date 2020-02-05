@@ -101,14 +101,14 @@ class Game:
                 screen.blit(self.pipe.image, self.pipe.rect)
                 screen.blit(self.pipe.ball.image, self.pipe.ball.rect)
 
-                font = pygame.font.Font(None, 24)
+                font = pygame.font.Font(None, 40)
                 for pl in self.players:
-                    txt = ""
-                    for caract in pl.combi.goal:
-                        txt = txt + " " + caract
-                    text = font.render(txt, 1, (255, 255, 255))
-                    screen.blit(text, pl.pos)
-                    text = font.render(str(pl.combi.score), 1, (255, 255, 255))
+                    number = 0
+                    for key in pl.combi.goal:
+                        pos = pl.pos[0] + number * 80, pl.pos[1]
+                        screen.blit(key, pos)
+                        number += 1
+                    text = font.render("Score actuel : " + str(pl.combi.score), 1, (255, 255, 255))
                     screen.blit(text, pl.scorePos)
 
             # Animation de mec qui souffle pour le joueur 1
@@ -118,10 +118,10 @@ class Game:
                     blowCount1 += 1
                 elif blowCount1 == 13 :
                     self.player1.image = self.player1.images[1]
-                    blowCount2 += 1
+                    blowCount1 += 1
                 elif blowCount1 <= 25 :
                     self.player1.blow(1)
-                    blowCount2 += 1
+                    blowCount1 += 1
                 if blowCount1 == 18:
                     self.player1.image = self.player1.images[0]
                 if blowCount1 == 26:
