@@ -36,6 +36,9 @@ class Game:
         i = 0
         key = 0
 
+        self.player1.name = windowstate.name1
+        self.player2.name = windowstate.name2
+
         running = True
         while running:
 

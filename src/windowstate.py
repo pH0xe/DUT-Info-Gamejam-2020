@@ -4,3 +4,7 @@ notice = False
 highscore = False
 settings = False
 credits = False
+playerName = False
+
+name1 = ''
+name2 = ''
