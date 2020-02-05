@@ -14,6 +14,7 @@ class HighScore:
         self.joueurs = getBestPlayer()
 
     def startHighScore(self, screen):
+        clock = pygame.time.Clock()
 
         screen.blit(self.bg, (0, 0))
         font = pygame.font.Font(None, 80)
@@ -22,6 +23,7 @@ class HighScore:
         screen.blit(text_1, text_1_pos)
 
         menu = addBouton(screen, 'Menu', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
+        close = addBouton(screen, None, 'back', 15, 15, 30, 30)
 
         y = 0
         font = pygame.font.Font(None, 40)
@@ -52,7 +54,9 @@ class HighScore:
                     windowstate.highscore = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
-                    if menu.collidepoint(pos):
+                    if menu.collidepoint(pos) or close.collidepoint(pos):
                         windowstate.menu = True
                         windowstate.highscore = False
                         running = False
+
+            clock.tick(constant.FPS)

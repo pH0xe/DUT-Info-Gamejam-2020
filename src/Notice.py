@@ -12,6 +12,7 @@ class Notice:
         self.bg.fill(constant.LIGHT_BLUE)
 
     def startNotice(self, screen):
+        clock = pygame.time.Clock()
 
         screen.blit(self.bg, (0, 0))
 
@@ -25,6 +26,7 @@ class Notice:
         screen.blit(text_2, text_2_pos)
 
         menu = addBouton(screen, 'Menu', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
+        close = addBouton(screen, None, 'back', 15, 15, 30, 30)
 
         pygame.display.flip()
 
@@ -38,7 +40,8 @@ class Notice:
                     windowstate.notice = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
-                    if menu.collidepoint(pos):
+                    if menu.collidepoint(pos) or close.collidepoint(pos):
                         windowstate.menu = True
                         windowstate.notice = False
                         running = False
+            clock.tick(constant.FPS)

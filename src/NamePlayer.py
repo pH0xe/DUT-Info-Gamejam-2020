@@ -14,10 +14,12 @@ class NamePlayer:
 
 
     def startNamePlayer(self, screen):
+        clock = pygame.time.Clock()
         font = pygame.font.Font(None, 50)
 
         running = True
         while running:
+
             screen.blit(self.bg, self.rect)
 
             text_titre = font.render("Entrez le nom des joueurs", 1, constant.WHITE)
@@ -62,3 +64,5 @@ class NamePlayer:
                             windowstate.play = True
                             windowstate.playerName = False
                             running = False
+
+            clock.tick(constant.FPS)

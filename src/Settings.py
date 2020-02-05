@@ -13,6 +13,7 @@ class Settings:
         self.bg.fill(constant.LIGHT_BLUE)
 
     def startSettings(self, screen):
+        clock = pygame.time.Clock()
 
         running = True
         while running:
@@ -23,7 +24,7 @@ class Settings:
             text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)
             screen.blit(text_1, text_1_pos)
 
-            close = addBouton(screen, None, "close", constant.WIDTH - 40, 15, 20, 20)
+            close = addBouton(screen, None, 'back', 15, 15, 30, 30)
             menu = addBouton(screen, "Menu", None, constant.WIDTH // 2 - 200, 400, 400, 50)
 
             if isSoundOn():
@@ -56,3 +57,5 @@ class Settings:
 
                     elif music.collidepoint(pos):
                         toggleMusic()
+
+            clock.tick(constant.FPS)
