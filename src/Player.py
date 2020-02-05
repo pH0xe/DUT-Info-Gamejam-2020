@@ -30,8 +30,8 @@ class Player(pygame.sprite.Sprite):
         self.name = name
 
     def setRandomHead(self):
-        id = random.randrange(1, 5)
-        path = '../assets/players/player' + str(id) + '.png'
+        id = random.randrange(1, 6)
+        path = '../assets/Head/Player' + str(id) + '/Player1.png'
         self.image = pygame.image.load(path).convert_alpha()
         self.image = pygame.transform.scale(self.image, (200, 200))
         if self.id == "constant.PLAYER1":

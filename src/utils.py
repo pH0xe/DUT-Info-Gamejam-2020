@@ -33,3 +33,43 @@ def getBestPlayer():
         data = json.load(json_file)
         toReturn = sorted(data['score'], key=lambda player: player['highscore'], reverse=True)
         return toReturn[0:4]
+
+def toggleMusic():
+    with open('../jsonFile/config.json') as json_file:
+        data = json.load(json_file)
+    active = data['music'][0]['active']
+
+    if active:
+        data['music'][0]['active'] = 0
+        pygame.mixer.music.stop()
+    else:
+        data['music'][0]['active'] = 1
+        pygame.mixer.music.play()
+
+    with open('../jsonFile/config.json', "w") as jsonFile:
+        json.dump(data, jsonFile)
+
+def toggleSound():
+    with open('../jsonFile/config.json') as json_file:
+        data = json.load(json_file)
+    active = data['sound'][0]['active']
+
+    if active:
+        data['sound'][0]['active'] = 0
+        pygame.mixer.music.stop()
+    else:
+        data['sound'][0]['active'] = 1
+        pygame.mixer.music.play()
+
+    with open('../jsonFile/config.json', "w") as jsonFile:
+        json.dump(data, jsonFile)
+
+def isSoundOn():
+    with open('../jsonFile/config.json') as json_file:
+        data = json.load(json_file)
+    return data['sound'][0]['active']
+
+def isMusicOn():
+    with open('../jsonFile/config.json') as json_file:
+        data = json.load(json_file)
+    return data['music'][0]['active']
