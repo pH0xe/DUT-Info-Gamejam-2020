@@ -21,8 +21,8 @@ def addBouton(screen, text, icon, x, y, width, height):
         rect_text.y = rect.y + rect.height + 10
 
     else:
-        image = pygame.Surface((width, height))
-        image.fill(constant.RED)
+        image = pygame.image.load('../assets/Sign/bouton.png')
+        image = pygame.transform.scale(image, (width, height))
         text_1 = font.render(text, 1, constant.BLACK)
         rect_text = (constant.WIDTH // 2 - text_1.get_rect().width // 2, y + 10)
         rect = image.get_rect()
@@ -76,3 +76,21 @@ def isMusicOn():
     with open('../jsonFile/config.json') as json_file:
         data = json.load(json_file)
     return data['music'][0]['active']
+
+def registerNewScore(name, score):
+    with open('../jsonFile/score.json') as json_file:
+        data = json.load(json_file)
+    players = data['score']
+
+    playerFind = False
+    for player in players:
+        if player['name'] == name:
+            if player['highscore'] < score:
+                player['highscore'] = score
+                playerFind = True
+
+    if not playerFind:
+        players.append({'name': name, 'highscore': score})
+
+    with open('../jsonFile/score.json', "w") as jsonFile:
+        json.dump(data, jsonFile, indent=4)

@@ -3,7 +3,7 @@ import pygame
 from src import constant, windowstate
 from src.Pipe import Pipe
 from src.Player import Player
-from src.utils import addBouton, isSoundOn
+from src.utils import addBouton, isSoundOn, registerNewScore
 
 
 class Game:
@@ -45,6 +45,8 @@ class Game:
         blowCount1 = 0
         isBlow2 = False
         blowCount2 = 0
+
+        isRegister = False
 
         running = True
         while running:
@@ -92,6 +94,11 @@ class Game:
                 loserRect.y = loserRect.y + 50
                 screen.blit(textLoser, loserRect)
                 menu = addBouton(screen, None, 'back', 15, 15, 30, 30)
+
+                if not isRegister:
+                    registerNewScore(winnerName, winnerScore)
+                    registerNewScore(loserName, loserScore)
+                    isRegister = True
 
             # Si jeu en cours
             else:
