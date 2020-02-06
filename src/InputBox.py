@@ -5,7 +5,11 @@ from src import constant
 
 class InputBox:
     def __init__(self, x, y, h, w, text=''):
-        self.rect = pygame.Rect(x,y,h,w)
+        self.image = pygame.Surface((h, w))
+        self.image.fill(constant.GRAY)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
         self.text = text
         self.active = False
         self.font = pygame.font.Font(None, 50)
@@ -25,7 +29,6 @@ class InputBox:
         if event.type == pygame.KEYDOWN:
             if self.active:
                 if event.key == pygame.K_RETURN:
-                    print(self.text)
                     self.active = False
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
@@ -34,8 +37,10 @@ class InputBox:
                 self.txt_surface = self.font.render(self.text, True, self.color)
 
     def draw(self, screen):
+        screen.blit(self.image, self.rect)
         # Blit the text.
         screen.blit(self.txt_surface, (self.rect.x + 5, self.rect.y + 10))
         # Blit the rect.
         pygame.draw.rect(screen, self.color, self.rect, 2)
+
 

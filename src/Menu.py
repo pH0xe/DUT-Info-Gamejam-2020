@@ -7,8 +7,8 @@ from src.utils import addBouton
 
 class Menu:
     def __init__(self):
-        self.bg = pygame.Surface(constant.SCREEN_SIZE)
-        self.bg.fill(constant.LIGHT_BLUE)
+        self.bg = pygame.image.load('../assets/Background/background_menu.png').convert()
+        self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
         self.rect = self.bg.get_rect()
 
     def startMenu(self, screen):

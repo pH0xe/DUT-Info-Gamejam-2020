@@ -7,9 +7,8 @@ from src.utils import addBouton
 
 class Notice:
     def __init__(self):
-        self.bg = pygame.Surface(constant.SCREEN_SIZE)
-        self.bg = pygame.transform.scale(self.bg, (constant.SCREEN_SIZE))
-        self.bg.fill(constant.LIGHT_BLUE)
+        self.bg = pygame.image.load('../assets/Background/background.png').convert()
+        self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
 
     def addText(self, screen, font, texte, y):
         text_1 = font.render(texte, 1, (255, 255, 255))

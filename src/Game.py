@@ -10,10 +10,10 @@ class Game:
     def __init__(self):
         self.all_sprite = pygame.sprite.Group()
 
-        self.player1 = Player(10, 210, constant.LIGHT_BLUE, 1)
+        self.player1 = Player(10, 210, 1)
         self.player1.setName('1')
 
-        self.player2 = Player(824, 210, constant.LIGHT_GREEN, 2)
+        self.player2 = Player(824, 210, 2)
         self.player2.setName('2')
 
         self.players = []
@@ -60,11 +60,13 @@ class Game:
 
             # Si fini afficher fin
             if finish:
+                isBlow1 = False
+                isBlow2 = False
                 if isSoundOn():
                     applause.play()
-                gameOver = pygame.Surface(constant.SCREEN_SIZE)
+                gameOver = pygame.image.load('../assets/Background/background.png').convert()
+                gameOver = pygame.transform.scale(gameOver, constant.SCREEN_SIZE)
                 gameOverRect = gameOver.get_rect()
-                gameOver.fill(constant.LIGHT_BLUE)
                 screen.blit(gameOver, gameOverRect)
 
                 font = pygame.font.Font(None, 72)
@@ -106,7 +108,7 @@ class Game:
             # Si jeu en cours
             else:
                 screen.blit(self.bg, self.rect)
-                menu = addBouton(screen, None, 'back', 5, 5, 30, 30)
+                menu = addBouton(screen, None, 'back_black', 5, 5, 30, 30)
                 self.all_sprite.draw(screen)
                 screen.blit(self.pipe.image, self.pipe.rect)
                 screen.blit(self.pipe.ball.image, self.pipe.ball.rect)
