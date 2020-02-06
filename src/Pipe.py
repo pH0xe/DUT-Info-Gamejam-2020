@@ -11,7 +11,7 @@ class Pipe(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (630, 60))
         self.rect = self.image.get_rect()
         self.rect.x = 205
-        self.rect.y = 140
+        self.rect.y = 340
         self.ball = Ball()
         self.ball.rect.center = self.rect.center
 
