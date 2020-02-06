@@ -3,7 +3,7 @@ import pygame
 from src import constant, windowstate
 from src.Pipe import Pipe
 from src.Player import Player
-from src.utils import addBouton, isSoundOn, registerNewScore
+from src.utils import addBouton, isSoundOn, registerNewScore, getSpriteWindLeft, getSpriteWindRight
 
 
 class Game:
@@ -28,6 +28,9 @@ class Game:
         self.bg = pygame.image.load('../assets/Background/gameBG.png').convert()
         self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
         self.rect = self.bg.get_rect()
+
+        self.windLeft = getSpriteWindLeft()
+        self.windRight = getSpriteWindRight()
 
     def startGame(self, screen):
         clock = pygame.time.Clock()
@@ -93,7 +96,7 @@ class Game:
                 loserRect.center = winnerRect.center
                 loserRect.y = loserRect.y + 50
                 screen.blit(textLoser, loserRect)
-                menu = addBouton(screen, None, 'back', 15, 15, 30, 30)
+                menu = addBouton(screen, None, 'back', 5, 5, 30, 30)
 
                 if not isRegister:
                     registerNewScore(winnerName, winnerScore)
@@ -103,20 +106,28 @@ class Game:
             # Si jeu en cours
             else:
                 screen.blit(self.bg, self.rect)
-                menu = addBouton(screen, None, 'back', 15, 15, 30, 30)
+                menu = addBouton(screen, None, 'back', 5, 5, 30, 30)
                 self.all_sprite.draw(screen)
                 screen.blit(self.pipe.image, self.pipe.rect)
                 screen.blit(self.pipe.ball.image, self.pipe.ball.rect)
 
+                # Affichage de la combinaison et du score actuel
                 font = pygame.font.Font(None, 40)
                 for pl in self.players:
                     number = 0
+                    # Affichage de la combinaison
                     for key in pl.combi.goal:
                         pos = pl.pos[0] + number * 80, pl.pos[1]
                         screen.blit(key, pos)
                         number += 1
+                    # affichage du score
                     text = font.render("Score actuel : " + str(pl.combi.score), 1, (255, 255, 255))
                     screen.blit(text, pl.scorePos)
+                    # affichage du nom du joueur
+                    text = font.render(pl.name, 1, constant.WHITE)
+
+                    screen.blit(text, pl.namePos)
+
 
             # Animation de mec qui souffle pour le joueur 1
             if isBlow1:
@@ -126,14 +137,24 @@ class Game:
                 elif blowCount1 == 13 :
                     self.player1.image = self.player1.images[1]
                     blowCount1 += 1
-                elif blowCount1 <= 25 :
+                elif blowCount1 <= 20:
+                    blowCount1 += 1
+                elif blowCount1 <= 33 :
                     self.player1.blow(1)
                     blowCount1 += 1
+
                 if blowCount1 == 18:
                     self.player1.image = self.player1.images[0]
-                if blowCount1 == 26:
+
+                if blowCount1 == 34:
                     blowCount1 = 0
                     isBlow1 = False
+
+                if blowCount1 > 13 and blowCount1 < 27:
+                    windRect1 = self.windLeft[blowCount1-13].get_rect()
+                    windRect1.x = 200
+                    windRect1.y = 350
+                    screen.blit(self.windLeft[blowCount1-13], windRect1)
 
             # Animation de mec qui souffle pour le joueur 2
             if isBlow2:
@@ -143,14 +164,24 @@ class Game:
                 elif blowCount2 == 13:
                     self.player2.image = self.player2.images[1]
                     blowCount2 += 1
-                elif blowCount2 <= 26:
+                elif blowCount2 <= 20:
+                    blowCount2 += 1
+                elif blowCount2 <= 33:
                     self.player2.blow(1)
                     blowCount2 += 1
+
                 if blowCount2 == 18:
                     self.player2.image = self.player2.images[0]
-                if blowCount2 == 27:
+
+                if blowCount2 == 34:
                     blowCount2 = 0
                     isBlow2 = False
+
+                if blowCount2 > 13 and blowCount2 < 27:
+                    windRect2 = self.windRight[blowCount2-13].get_rect()
+                    windRect2.x = 500
+                    windRect2.y = 350
+                    screen.blit(self.windRight[blowCount2-13], windRect2)
 
 
             pygame.display.flip()

@@ -94,3 +94,22 @@ def registerNewScore(name, score):
 
     with open('../jsonFile/score.json', "w") as jsonFile:
         json.dump(data, jsonFile, indent=4)
+
+def getSpriteWindLeft():
+    toReturn = []
+    for i in range(1, 15):
+        path = "../assets/wind/Wind" + str(i) + ".png"
+        tempImage = pygame.image.load(path).convert_alpha()
+        tempImage = pygame.transform.flip(tempImage, True, False)
+        tempImage = pygame.transform.scale(tempImage, (400, 50))
+        toReturn.append(tempImage)
+    return toReturn
+
+def getSpriteWindRight():
+    toReturn = []
+    for i in range(1, 15):
+        path = "../assets/wind/Wind" + str(i) + ".png"
+        tempImage = pygame.image.load(path).convert_alpha()
+        tempImage = pygame.transform.scale(tempImage, (400, 50))
+        toReturn.append(tempImage)
+    return toReturn

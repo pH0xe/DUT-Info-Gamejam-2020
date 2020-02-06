@@ -19,6 +19,8 @@ class Player(pygame.sprite.Sprite):
         self.pos = eval(self.posid)
         self.scoreid = "constant.SCORE" + str(number) + "POS"
         self.scorePos = eval(self.scoreid)
+        self.nameid = "constant.NAME" + str(number) + "POS"
+        self.namePos = eval(self.nameid)
 
         self.images = []
         self.setRandomHead()

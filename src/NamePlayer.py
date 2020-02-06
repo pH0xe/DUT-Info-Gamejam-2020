@@ -36,7 +36,7 @@ class NamePlayer:
             self.inputBox2.draw(screen)
 
             play = addBouton(screen, 'Commencer', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
-            menu = addBouton(screen, None, 'back', 15, 15, 30, 30)
+            menu = addBouton(screen, None, 'back', 5, 5, 30, 30)
 
             pygame.display.flip()
             for event in pygame.event.get():
