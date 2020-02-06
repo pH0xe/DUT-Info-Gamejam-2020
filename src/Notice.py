@@ -43,7 +43,7 @@ class Notice:
                 font = pygame.font.SysFont('Helvetic', 80)
                 self.addText(screen, font, "Notice 2/3", 100)
                 font = pygame.font.SysFont('Helvetic', 40)
-                self.addText(screen, font, "Comment sont calculés les points ", 250)
+                self.addText(screen, font, "Comment sont calculés les points :", 250)
                 self.addText(screen, font, "Votre score augmente si vous réussissez une combinaison", 300)
                 self.addText(screen, font, "et diminue en cas d'échec", 350)
                 self.addText(screen, font, "Comment lancer un malus :", 450)
