@@ -1,5 +1,4 @@
 import json
-
 import pygame
 
 from src import constant, windowstate
@@ -37,6 +36,13 @@ class Settings:
             else:
                 music = addBouton(screen, "Musique", "mute_music", constant.WIDTH // 2 + 50, 150, 50, 50)
 
+            bug1 = pygame.image.load("../assets/bigBug.png")
+            bug1 = pygame.transform.rotate(bug1, -90)
+
+            screen.blit(bug1, (120, 200))
+            screen.blit(bug1, (740, 200))
+            screen.blit(bug1, (120, 500))
+            screen.blit(bug1, (740, 500))
 
             pygame.display.flip()
 

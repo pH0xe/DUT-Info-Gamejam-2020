@@ -14,11 +14,11 @@ class Menu:
     def startMenu(self, screen):
         screen.blit(self.bg, self.rect)
 
-       ##titre du menu
+       #titre du menu
         font = pygame.font.SysFont('Helvetic', 80)
-        text_1 = font.render("Blow the Bug", 1, (255, 255, 255))
-        text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)
-        screen.blit(text_1, text_1_pos)
+
+        name = pygame.image.load("../assets/name/name.png")
+        screen.blit(name, (constant.WIDTH // 2 - name.get_rect().width // 2, 100 - name.get_rect().height // 2))
 
         play = addBouton(screen, "Jouer", None, constant.WIDTH // 2 - 200, 200, 400, 50)
         instruction = addBouton(screen, "Comment jouer ?", None, constant.WIDTH // 2 - 200, 275, 400, 50)
