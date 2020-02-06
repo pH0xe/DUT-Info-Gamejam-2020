@@ -10,10 +10,10 @@ class Game:
     def __init__(self):
         self.all_sprite = pygame.sprite.Group()
 
-        self.player1 = Player(10, 210, constant.LIGHT_BLUE, 1)
+        self.player1 = Player(10, 210, 1)
         self.player1.setName('1')
 
-        self.player2 = Player(824, 210, constant.LIGHT_GREEN, 2)
+        self.player2 = Player(824, 210, 2)
         self.player2.setName('2')
 
         self.players = []
@@ -25,7 +25,7 @@ class Game:
         self.all_sprite.add(self.player1)
         self.all_sprite.add(self.player2)
 
-        self.bg = pygame.image.load('../assets/Background/gameBG.png').convert()
+        self.bg = pygame.image.load('assets/Background/gameBG.png').convert()
         self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
         self.rect = self.bg.get_rect()
 
@@ -44,6 +44,12 @@ class Game:
 
     def startGame(self, screen):
         clock = pygame.time.Clock()
+
+        if windowstate.isBlanchon1:
+            self.player1.setBlanchonHead()
+
+        if windowstate.isBlanchon2:
+            self.player2.setBlanchonHead()
 
         for player in self.players:
             player.combi.newRandom(4)
@@ -66,16 +72,18 @@ class Game:
         while running:
 
             result = finish, loser = self.pipe.collide()
-            applause = pygame.mixer.Sound('../assets/sound/applause.ogg')
+            applause = pygame.mixer.Sound('assets/sound/applause.ogg')
             applause.set_volume(0.02)
 
             # Si fini afficher fin
             if finish:
+                isBlow1 = False
+                isBlow2 = False
                 if isSoundOn():
                     applause.play()
-                gameOver = pygame.Surface(constant.SCREEN_SIZE)
+                gameOver = pygame.image.load('assets/Background/background.png').convert()
+                gameOver = pygame.transform.scale(gameOver, constant.SCREEN_SIZE)
                 gameOverRect = gameOver.get_rect()
-                gameOver.fill(constant.LIGHT_BLUE)
                 screen.blit(gameOver, gameOverRect)
 
                 font = pygame.font.Font(None, 72)
@@ -117,7 +125,7 @@ class Game:
             # Si jeu en cours
             else:
                 screen.blit(self.bg, self.rect)
-                menu = addBouton(screen, None, 'back', 5, 5, 30, 30)
+                menu = addBouton(screen, None, 'back_black', 5, 5, 30, 30)
                 self.all_sprite.draw(screen)
                 screen.blit(self.pipe.image, self.pipe.rect)
                 screen.blit(self.pipe.ball.image, self.pipe.ball.rect)
@@ -275,7 +283,7 @@ class Game:
                             key = self.players[count].combi.reverse(key)
                         self.players[count].combi.tried(key)
                         if self.players[count].combi.state == -1:
-                            error = pygame.mixer.Sound('../assets/sound/error.ogg')
+                            error = pygame.mixer.Sound('assets/sound/error.ogg')
                             error.set_volume(0.02)
                             if isSoundOn():
                                 error.play()
@@ -286,7 +294,7 @@ class Game:
                                 isBlow2 = True
                             else:
                                 isBlow1 = True
-                            blow = pygame.mixer.Sound('../assets/sound/blow.ogg')
+                            blow = pygame.mixer.Sound('assets/sound/blow.ogg')
                             blow.set_volume(0.4)
                             if isSoundOn():
                                 blow.play()

@@ -8,8 +8,8 @@ class NamePlayer:
         self.inputBox1 = InputBox(constant.WIDTH // 2, 3 * constant.HEIGHT // 8 - 30, 200, 60)
         self.inputBox2 = InputBox(constant.WIDTH // 2, 5 * constant.HEIGHT // 8 - 30, 200, 60)
 
-        self.bg = pygame.Surface(constant.SCREEN_SIZE)
-        self.bg.fill(constant.LIGHT_BLUE)
+        self.bg = pygame.image.load('assets/Background/background.png').convert()
+        self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
         self.rect = self.bg.get_rect()
 
 
@@ -59,15 +59,25 @@ class NamePlayer:
                     windowstate.playerName = False
                     pygame.quit()
 
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    pos = pygame.mouse.get_pos()
-                    if menu.collidepoint(pos):
-                        windowstate.menu = True
-                        windowstate.playerName = False
-                        running = False
+                elif event.type == pygame.MOUSEBUTTONDOWN and menu.collidepoint(pygame.mouse.get_pos()):
+                    windowstate.menu = True
+                    windowstate.playerName = False
+                    running = False
 
-                    elif play.collidepoint(pos):
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
+                    if self.inputBox1.active:
+                        self.inputBox1.active = False
+                        self.inputBox2.active = True
+                    else:
+                        self.inputBox2.active = False
+                        self.inputBox1.active = True
+
+                elif (event.type == pygame.MOUSEBUTTONDOWN and play.collidepoint(pygame.mouse.get_pos())) or (event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN):
                         if self.inputBox1.text != '' and self.inputBox2.text != '':
+                            if self.inputBox1.text == 'blanchon' or self.inputBox1.text == 'Blanchon' or self.inputBox1.text == 'Herve' or self.inputBox1.text == 'Hervé':
+                                windowstate.isBlanchon1 = True
+                            elif self.inputBox2.text == 'blanchon' or self.inputBox2.text == 'Blanchon' or self.inputBox2.text == 'Herve' or self.inputBox2.text == 'Hervé':
+                                windowstate.isBlanchon2 = True
                             windowstate.name1 = self.inputBox1.text
                             windowstate.name2 = self.inputBox2.text
                             windowstate.play = True

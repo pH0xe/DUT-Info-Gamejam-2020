@@ -8,3 +8,5 @@ playerName = False
 
 name1 = ''
 name2 = ''
+isBlanchon1 = False
+isBlanchon2 = False

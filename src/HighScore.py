@@ -6,16 +6,16 @@ from src.utils import getBestPlayer, addBouton
 
 
 class HighScore:
-    def __init__(self, screen):
-        self.bg = pygame.Surface(constant.SCREEN_SIZE)
-        self.bg.fill(constant.LIGHT_BLUE)
+    def __init__(self):
+        self.bg = pygame.image.load('assets/Background/background.png').convert()
+        self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
 
         # Création d'une liste, il faut recuperer les high score et les ordonner
         self.joueurs = getBestPlayer()
 
     def startHighScore(self, screen):
         clock = pygame.time.Clock()
-
+        self.joueurs = getBestPlayer()
         screen.blit(self.bg, (0, 0))
         font = pygame.font.Font(None, 80)
         text_1 = font.render("High-Score", 1, constant.WHITE)
@@ -35,14 +35,14 @@ class HighScore:
 
             text_score = font.render(str(joueur['highscore']), 1, constant.WHITE)
             rect_score = text_score.get_rect()
-            rect_score.x = rect_nom.left + 100
+            rect_score.x = rect_nom.x + 300
             rect_score.y = rect_nom.y
 
             y += 100
             screen.blit(text_nom, rect_nom)
             screen.blit(text_score, rect_score)
 
-        bug1 = pygame.image.load("../assets/bigBug.png")
+        bug1 = pygame.image.load("assets/bigBug.png")
         bug1 = pygame.transform.rotate(bug1, -90)
 
         screen.blit(bug1, (120, 300))
