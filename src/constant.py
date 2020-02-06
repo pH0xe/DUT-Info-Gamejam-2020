@@ -9,6 +9,7 @@ LIGHT_RED = (240, 128, 128)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
+GREEN = (0, 225, 0)
 
 NB_PLAYER = 2
 PLAYER1 = ['z','q','s','d']

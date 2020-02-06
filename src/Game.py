@@ -35,7 +35,8 @@ class Game:
         count = -1
         i = 0
         key = 0
-
+        msg_bonus = ["BONUS : appuye 5 fois sur ESPACE pour l'utiliser !", "BONUS : appuye 5 fois sur ENTREE pour l'utiliser !"]
+        msg_malus = "MALUS : inversion des touches !"
         self.player1.name = windowstate.name1
         self.player2.name = windowstate.name2
 
@@ -91,6 +92,23 @@ class Game:
                     screen.blit(text, pl.pos)
                     text = font.render(str(pl.combi.score), 1, (255, 255, 255))
                     screen.blit(text, pl.scorePos)
+                if self.player1.success >= 3:
+                    text_bonus = font.render(msg_bonus[0], 1, constant.GREEN)
+                    text_bonus_pos = (constant.WIDTH // 4 - text_bonus.get_rect().width // 2, 300)
+                    screen.blit(text_bonus, text_bonus_pos)
+                elif self.player2.success >= 3:
+                    text_bonus = font.render(msg_bonus[1], 1, constant.GREEN)
+                    text_bonus_pos = (3 * constant.WIDTH // 4 - text_bonus.get_rect().width // 2, 300)
+                    screen.blit(text_bonus, text_bonus_pos)
+                if self.player1.malus:
+                    text_malus = font.render(msg_malus, 1, constant.RED)
+                    text_malus_pos = (constant.WIDTH // 4 - text_malus.get_rect().width // 2, 350)
+                    screen.blit(text_malus, text_malus_pos)
+                elif self.player2.malus:
+                    text_malus = font.render(msg_malus, 1, constant.RED)
+                    text_malus_pos = (3 * constant.WIDTH // 4 - text_malus.get_rect().width // 2, 350)
+                    screen.blit(text_malus, text_malus_pos)
+
             pygame.display.flip()
 
             for event in pygame.event.get():
@@ -106,6 +124,7 @@ class Game:
                         print(self.player1.bonus)
                         if self.player1.bonus == 5:
                             self.player2.addRandomMalus()
+                            self.player2.success = 0
                             self.player1.success = 0
                             self.player1.bonus = 0
                     elif event.key == pygame.K_RETURN and self.player2.success >= 3:
@@ -113,6 +132,7 @@ class Game:
                         print(self.player2.bonus)
                         if self.player2.bonus == 5:
                             self.player1.addRandomMalus()
+                            self.player1.success = 0
                             self.player2.success = 0
                             self.player2.bonus = 0
 
@@ -134,6 +154,9 @@ class Game:
                             self.players[count].combi.newRandom(4)  # newRandom(4) 4 = taille de la combinaison à changer
                         elif self.players[count].combi.state == 1:
                             self.players[count].success += 1
+                            if self.players[count].success == 1:
+                                self.players[count].malus = False
+
                             self.players[count].combi.newRandom(4)
                             if count == 0:
                                 self.pipe.moveRight()
