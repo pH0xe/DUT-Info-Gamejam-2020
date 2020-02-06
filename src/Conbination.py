@@ -31,13 +31,13 @@ class Combination(object):
         self.attempt = []
         for i in self.tempGoal:
             if i == 'q' or i == 'LEFT':
-                self.goal.append(pygame.image.load('../assets/Sign/Left1.png').convert_alpha())
+                self.goal.append(pygame.image.load('assets/Sign/Left1.png').convert_alpha())
             elif i == 'd' or i == 'RIGHT':
-                self.goal.append(pygame.image.load('../assets/Sign/Right1.png').convert_alpha())
+                self.goal.append(pygame.image.load('assets/Sign/Right1.png').convert_alpha())
             elif i == 'z' or i == 'UP':
-                self.goal.append(pygame.image.load('../assets/Sign/Up1.png').convert_alpha())
+                self.goal.append(pygame.image.load('assets/Sign/Up1.png').convert_alpha())
             elif i == 's' or i == 'DOWN':
-                self.goal.append(pygame.image.load('../assets/Sign/Down1.png').convert_alpha())
+                self.goal.append(pygame.image.load('assets/Sign/Down1.png').convert_alpha())
 
     def tried(self, car):
         self.attempt.append(car)
@@ -47,16 +47,16 @@ class Combination(object):
             self.score += 10
         elif self.attempt == self.goalValue [0:size]:
             if self.tempGoal[size - 1] == 'q' or self.tempGoal[size - 1] == 'LEFT':
-                self.goal[size - 1] = pygame.image.load('../assets/Sign/Left2.png').convert_alpha()
+                self.goal[size - 1] = pygame.image.load('assets/Sign/Left2.png').convert_alpha()
 
             elif self.tempGoal[size - 1] == 'd' or self.tempGoal[size - 1] == 'RIGHT':
-                self.goal[size - 1] = pygame.image.load('../assets/Sign/Right2.png').convert_alpha()
+                self.goal[size - 1] = pygame.image.load('assets/Sign/Right2.png').convert_alpha()
 
             elif self.tempGoal[size - 1] == 'z' or self.tempGoal[size - 1] == 'UP':
-                self.goal[size - 1] = pygame.image.load('../assets/Sign/Up2.png').convert_alpha()
+                self.goal[size - 1] = pygame.image.load('assets/Sign/Up2.png').convert_alpha()
 
             elif self.tempGoal[size - 1] == 's' or self.tempGoal[size - 1] == 'DOWN':
-                self.goal[size - 1] = pygame.image.load('../assets/Sign/Down2.png').convert_alpha()
+                self.goal[size - 1] = pygame.image.load('assets/Sign/Down2.png').convert_alpha()
             self.state = 0
         else:
             self.state = -1

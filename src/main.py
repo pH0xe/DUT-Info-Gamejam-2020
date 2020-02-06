@@ -14,7 +14,7 @@ from src.NamePlayer import NamePlayer
 pygame.init()
 
 screen = pygame.display.set_mode(constant.SCREEN_SIZE)
-logo = pygame.image.load('../assets/logo.png').convert_alpha()
+logo = pygame.image.load('assets/logo.png').convert_alpha()
 
 pygame.display.set_caption("Blow the Bug")
 pygame.display.set_icon(logo)
@@ -28,10 +28,10 @@ highscore = HighScore()
 settings = Settings()
 credit = Credit()
 
-with open('../jsonFile/config.json') as json_file:
+with open('jsonFile/config.json') as json_file:
     data = json.load(json_file)
 
-pygame.mixer.music.load('../assets/sound/music.ogg')
+pygame.mixer.music.load('assets/sound/music.ogg')
 pygame.mixer.music.set_volume(0.03)
 
 if data['music'][0]['active']:
