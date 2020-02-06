@@ -7,6 +7,14 @@
         {
             "name": "Az",
             "highscore": 20
+        },
+        {
+            "name": "z",
+            "highscore": 10
+        },
+        {
+            "name": "fze",
+            "highscore": 120
         }
     ]
 }
