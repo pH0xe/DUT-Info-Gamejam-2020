@@ -14,8 +14,9 @@ class NamePlayer:
 
 
     def startNamePlayer(self, screen):
-        font = pygame.font.Font(None, 30)
+        clock = pygame.time.Clock()
 
+        font = pygame.font.Font(None, 30)
         text = font.render("Vous n'avez pas rentré tous les noms", 1, constant.RED)
         text_pos = (constant.WIDTH // 2 - text.get_rect().width // 2, constant.HEIGHT - 150)
 
@@ -28,8 +29,7 @@ class NamePlayer:
             screen.blit(self.bg, self.rect)
 
             text_titre = font.render("Entrez le nom des joueurs", 1, constant.WHITE)
-            text_titre_pos = (constant.WIDTH // 2 - text_titre.get_rect().width // 2,
-                              constant.HEIGHT // 8 - text_titre.get_rect().height // 2)
+            text_titre_pos = (constant.WIDTH // 2 - text_titre.get_rect().width // 2, constant.HEIGHT // 8 - text_titre.get_rect().height // 2)
             screen.blit(text_titre, text_titre_pos)
             text_j1 = font.render("Joueur 1", 1, constant.WHITE)
             text_j1_pos = (constant.WIDTH // 4, 3 * constant.HEIGHT // 8 - text_j1.get_rect().height // 2)
@@ -42,7 +42,7 @@ class NamePlayer:
             self.inputBox2.draw(screen)
 
             play = addBouton(screen, 'Commencer', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
-            menu = addBouton(screen, None, 'back', 15, 15, 30, 30)
+            menu = addBouton(screen, None, 'back', 5, 5, 30, 30)
 
             if isempty:
                 screen.blit(text, text_pos)
@@ -77,3 +77,5 @@ class NamePlayer:
                         else:
                             isempty = True
 
+
+            clock.tick(constant.FPS)
