@@ -8,7 +8,7 @@ from src.Conbination import Combination
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, color, number):
+    def __init__(self, x, y, number):
         super().__init__()
         self.name = ''
         self.image = pygame.Surface((200, 200))

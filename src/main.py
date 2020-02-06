@@ -24,9 +24,9 @@ clock = pygame.time.Clock()
 namePlayer = NamePlayer()
 menu = Menu()
 notice = Notice()
-highscore = HighScore(screen)
-settings = Settings(screen)
-credit = Credit(screen)
+highscore = HighScore()
+settings = Settings()
+credit = Credit()
 
 with open('../jsonFile/config.json') as json_file:
     data = json.load(json_file)

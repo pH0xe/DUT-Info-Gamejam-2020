@@ -14,7 +14,7 @@ def addBouton(screen, text, icon, x, y, width, height):
         rect.x = x
         rect.y = y
 
-        text_1 = font.render(text, 1, constant.BLACK)
+        text_1 = font.render(text, 1, constant.WHITE)
         rect_text = text_1.get_rect()
 
         rect_text.center = rect.center

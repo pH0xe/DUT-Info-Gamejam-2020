@@ -6,9 +6,10 @@ from src.utils import addBouton
 
 
 class Credit:
-    def __init__(self, screen):
-        self.bg = pygame.Surface(constant.SCREEN_SIZE)
-        self.bg.fill(constant.LIGHT_BLUE)
+    def __init__(self):
+        self.bg = pygame.image.load('../assets/Background/background.png').convert()
+        self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
+        self.rect = self.bg.get_rect()
 
     def addText(self, screen, font, texte, y):
         text_1 = font.render(texte, 1, (255, 255, 255))
@@ -27,11 +28,11 @@ class Credit:
 
         font = pygame.font.SysFont('Helvetic', 40)
         self.addText(screen, font, "L'équipe Semi :", 150)
-        self.addText(screen, font, "- Martin, game director", 200)
-        self.addText(screen, font, "- Fanny", 250)
-        self.addText(screen, font, "- Marine", 300)
-        self.addText(screen, font, "- Julien", 350)
-        self.addText(screen, font, "- Joris", 400)
+        self.addText(screen, font, "- Martin, game designer - testeur", 200)
+        self.addText(screen, font, "- Fanny, développeuse", 250)
+        self.addText(screen, font, "- Marine, développeuse", 300)
+        self.addText(screen, font, "- Julien, développeur - intégrateur", 350)
+        self.addText(screen, font, "- Joris, développeur - graphiste", 400)
 
         self.addText(screen, font, "Son : Universal-soundbank    buzzer 6", 480)
         self.addText(screen, font, "Son : Freesound : xtrsounder    Human blowing", 530)
@@ -44,8 +45,8 @@ class Credit:
         bug1 = pygame.image.load("../assets/bigBug.png")
         bug1 = pygame.transform.rotate(bug1, -90)
 
-        screen.blit(bug1, (120, 200))
-        screen.blit(bug1, (740, 200))
+        screen.blit(bug1, (80, 200))
+        screen.blit(bug1, (780, 200))
 
         pygame.display.flip()
 

@@ -6,10 +6,10 @@ from src.utils import addBouton, toggleSound, toggleMusic, isSoundOn, isMusicOn
 
 
 class Settings:
-    def __init__(self, screen):
-        self.bg = pygame.Surface(constant.SCREEN_SIZE)
+    def __init__(self):
+        self.bg = pygame.image.load('../assets/Background/background.png').convert()
+        self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
         self.rect = self.bg.get_rect()
-        self.bg.fill(constant.LIGHT_BLUE)
 
     def startSettings(self, screen):
         clock = pygame.time.Clock()
