@@ -81,15 +81,15 @@ class Game:
                 isBlow2 = False
                 if isSoundOn():
                     applause.play()
-                gameOver = pygame.image.load('assets/Background/background.png').convert()
+                gameOver = pygame.image.load('assets/Background/background_menu.png').convert()
                 gameOver = pygame.transform.scale(gameOver, constant.SCREEN_SIZE)
                 gameOverRect = gameOver.get_rect()
                 screen.blit(gameOver, gameOverRect)
 
-                font = pygame.font.Font(None, 72)
-                text = font.render("VICTOIRE !", True, constant.LIGHT_GREEN)
+                text = pygame.image.load('assets/victoire.png')
                 textRect = text.get_rect()
                 textRect.center = screen.get_rect().center
+                textRect.y -= 150
                 screen.blit(text, textRect)
 
                 if loser == 'left':
@@ -104,13 +104,13 @@ class Game:
                     loserScore = self.player2.combi.score
 
                 font = pygame.font.Font(None, 40)
-                textWinner = font.render("Bravo " + winnerName + " ! Ton score est de : " + str(winnerScore), True, constant.LIGHT_RED)
+                textWinner = font.render("Bravo " + winnerName + " ! Ton score est de : " + str(winnerScore), True, constant.WHITE)
                 winnerRect = textWinner.get_rect()
                 winnerRect.center = screen.get_rect().center
                 winnerRect.y = winnerRect.y + 50
                 screen.blit(textWinner, winnerRect)
 
-                textLoser = font.render(loserName + " ton score est de : " + str(loserScore), True, constant.LIGHT_RED)
+                textLoser = font.render(loserName + " ton score est de : " + str(loserScore), True, constant.LIGHT_GRAY)
                 loserRect = textLoser.get_rect()
                 loserRect.center = winnerRect.center
                 loserRect.y = loserRect.y + 50
