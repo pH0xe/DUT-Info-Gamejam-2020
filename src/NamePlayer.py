@@ -8,7 +8,7 @@ class NamePlayer:
         self.inputBox1 = InputBox(constant.WIDTH // 2, 3 * constant.HEIGHT // 8 - 30, 200, 60)
         self.inputBox2 = InputBox(constant.WIDTH // 2, 5 * constant.HEIGHT // 8 - 30, 200, 60)
 
-        self.bg = pygame.image.load('../assets/Background/background.png').convert()
+        self.bg = pygame.image.load('assets/Background/background.png').convert()
         self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
         self.rect = self.bg.get_rect()
 

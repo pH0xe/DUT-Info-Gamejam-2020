@@ -7,7 +7,7 @@ from src.utils import addBouton
 
 class Credit:
     def __init__(self):
-        self.bg = pygame.image.load('../assets/Background/background.png').convert()
+        self.bg = pygame.image.load('assets/Background/background.png').convert()
         self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
         self.rect = self.bg.get_rect()
 
@@ -42,7 +42,7 @@ class Credit:
         menu = addBouton(screen, 'Menu', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
         close = addBouton(screen, None, 'back', 15, 15, 30, 30)
 
-        bug1 = pygame.image.load("../assets/bigBug.png")
+        bug1 = pygame.image.load("assets/bigBug.png")
         bug1 = pygame.transform.rotate(bug1, -90)
 
         screen.blit(bug1, (80, 200))

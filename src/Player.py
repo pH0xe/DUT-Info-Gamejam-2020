@@ -41,8 +41,8 @@ class Player(pygame.sprite.Sprite):
 
     def setRandomHead(self):
         id = random.randrange(1, 6)
-        path1 = '../assets/Head/Player' + str(id) + '/Player1.png'
-        path2 = '../assets/Head/Player' + str(id) + '/Player2.png'
+        path1 = 'assets/Head/Player' + str(id) + '/Player1.png'
+        path2 = 'assets/Head/Player' + str(id) + '/Player2.png'
 
         self.images.append(pygame.image.load(path1).convert_alpha())
         self.images.append(pygame.image.load(path2).convert_alpha())
@@ -55,8 +55,8 @@ class Player(pygame.sprite.Sprite):
             self.images[1] = pygame.transform.flip(self.images[1], True, False)
 
     def setBlanchonHead(self):
-        path1 = '../assets/Head/Player6/Player1.png'
-        path2 = '../assets/Head/Player6/Player2.png'
+        path1 = 'assets/Head/Player6/Player1.png'
+        path2 = 'assets/Head/Player6/Player2.png'
 
         self.images = []
         self.images.append(pygame.image.load(path1).convert_alpha())

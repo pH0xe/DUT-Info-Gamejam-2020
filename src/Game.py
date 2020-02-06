@@ -25,7 +25,7 @@ class Game:
         self.all_sprite.add(self.player1)
         self.all_sprite.add(self.player2)
 
-        self.bg = pygame.image.load('../assets/Background/gameBG.png').convert()
+        self.bg = pygame.image.load('assets/Background/gameBG.png').convert()
         self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
         self.rect = self.bg.get_rect()
 
@@ -61,7 +61,7 @@ class Game:
         while running:
 
             result = finish, loser = self.pipe.collide()
-            applause = pygame.mixer.Sound('../assets/sound/applause.ogg')
+            applause = pygame.mixer.Sound('assets/sound/applause.ogg')
             applause.set_volume(0.02)
 
             # Si fini afficher fin
@@ -70,7 +70,7 @@ class Game:
                 isBlow2 = False
                 if isSoundOn():
                     applause.play()
-                gameOver = pygame.image.load('../assets/Background/background.png').convert()
+                gameOver = pygame.image.load('assets/Background/background.png').convert()
                 gameOver = pygame.transform.scale(gameOver, constant.SCREEN_SIZE)
                 gameOverRect = gameOver.get_rect()
                 screen.blit(gameOver, gameOverRect)
@@ -213,7 +213,7 @@ class Game:
                     if count != -1:  # Si la touche appartient à un joueur, alors on appelle tried pour essayé la combinaison
                         self.players[count].combi.tried(key)
                         if self.players[count].combi.state == -1:
-                            error = pygame.mixer.Sound('../assets/sound/error.ogg')
+                            error = pygame.mixer.Sound('assets/sound/error.ogg')
                             error.set_volume(0.02)
                             if isSoundOn():
                                 error.play()
@@ -223,7 +223,7 @@ class Game:
                                 isBlow2 = True
                             else:
                                 isBlow1 = True
-                            blow = pygame.mixer.Sound('../assets/sound/blow.ogg')
+                            blow = pygame.mixer.Sound('assets/sound/blow.ogg')
                             blow.set_volume(0.4)
                             if isSoundOn():
                                 blow.play()
