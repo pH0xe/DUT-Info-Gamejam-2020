@@ -68,6 +68,10 @@ class NamePlayer:
 
                     elif play.collidepoint(pos):
                         if self.inputBox1.text != '' and self.inputBox2.text != '':
+                            if self.inputBox1.text == 'blanchon' or self.inputBox1.text == 'Blanchon' or self.inputBox1.text == 'Herve' or self.inputBox1.text == 'Hervé':
+                                windowstate.isBlanchon1 = True
+                            elif self.inputBox2.text == 'blanchon' or self.inputBox2.text == 'Blanchon' or self.inputBox2.text == 'Herve' or self.inputBox2.text == 'Hervé':
+                                windowstate.isBlanchon2 = True
                             windowstate.name1 = self.inputBox1.text
                             windowstate.name2 = self.inputBox2.text
                             windowstate.play = True
