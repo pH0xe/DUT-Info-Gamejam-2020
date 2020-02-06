@@ -66,7 +66,15 @@ class NamePlayer:
                         windowstate.playerName = False
                         running = False
 
-                    elif play.collidepoint(pos):
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
+                    if self.inputBox1.active:
+                        self.inputBox1.active = False
+                        self.inputBox2.active = True
+                    else:
+                        self.inputBox2.active = False
+                        self.inputBox1.active = True
+
+                elif (event.type == pygame.MOUSEBUTTONDOWN and play.collidepoint(pos)) or (event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN):
                         if self.inputBox1.text != '' and self.inputBox2.text != '':
                             if self.inputBox1.text == 'blanchon' or self.inputBox1.text == 'Blanchon' or self.inputBox1.text == 'Herve' or self.inputBox1.text == 'Hervé':
                                 windowstate.isBlanchon1 = True

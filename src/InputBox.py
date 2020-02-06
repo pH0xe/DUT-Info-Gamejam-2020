@@ -26,7 +26,7 @@ class InputBox:
             self.color = constant.WHITE
         else:
             self.color = constant.BLACK
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN and event.key != pygame.K_TAB:
             if self.active:
                 if event.key == pygame.K_RETURN:
                     self.active = False
