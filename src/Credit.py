@@ -16,6 +16,7 @@ class Credit:
         screen.blit(text_1, text_1_pos)
 
     def startCredits(self, screen):
+        clock = pygame.time.Clock()
 
         running = True
 
@@ -38,6 +39,7 @@ class Credit:
         self.addText(screen, font, "Musique : Kevin MacLeod    Welcome to the Show", 630)
 
         menu = addBouton(screen, 'Menu', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
+        close = addBouton(screen, None, 'back', 15, 15, 30, 30)
 
         bug1 = pygame.image.load("../assets/bigBug.png")
         bug1 = pygame.transform.rotate(bug1, -90)
@@ -56,7 +58,9 @@ class Credit:
                     windowstate.credits = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
-                    if menu.collidepoint(pos):
+                    if menu.collidepoint(pos) or close.collidepoint(pos):
                         windowstate.menu = True
                         windowstate.credits = False
                         running = False
+
+            clock.tick(constant.FPS)

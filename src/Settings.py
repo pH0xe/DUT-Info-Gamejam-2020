@@ -1,7 +1,8 @@
+import json
 import pygame
 
 from src import constant, windowstate
-from src.utils import addBouton
+from src.utils import addBouton, toggleSound, toggleMusic, isSoundOn, isMusicOn
 
 
 class Settings:
@@ -11,31 +12,39 @@ class Settings:
         self.bg.fill(constant.LIGHT_BLUE)
 
     def startSettings(self, screen):
-
-        screen.blit(self.bg, self.rect)
-
-        font = pygame.font.SysFont('Helvetic', 80)
-        text_1 = font.render("Paramètres", 1, (255, 255, 255))
-        text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)
-        screen.blit(text_1, text_1_pos)
-
-        close = addBouton(screen, None, "close", constant.WIDTH - 40, 15, 20, 20)
-        sound = addBouton(screen, "volume", "vol", constant.WIDTH // 2 - 100, 150, 50, 50)
-        music = addBouton(screen, "musique", "music", constant.WIDTH // 2 + 50, 150, 50, 50)
-        menu = addBouton(screen, "Menu", None, constant.WIDTH // 2 - 200, 400, 400, 50)
-
-        bug1 = pygame.image.load("../assets/bigBug.png")
-        bug1 = pygame.transform.rotate(bug1, -90)
-
-        screen.blit(bug1, (120, 200))
-        screen.blit(bug1, (740, 200))
-        screen.blit(bug1, (120, 500))
-        screen.blit(bug1, (740, 500))
-
-        pygame.display.flip()
+        clock = pygame.time.Clock()
 
         running = True
         while running:
+            screen.blit(self.bg, self.rect)
+
+            font = pygame.font.SysFont('Helvetic', 80)
+            text_1 = font.render("Paramètres", 1, (255, 255, 255))
+            text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)
+            screen.blit(text_1, text_1_pos)
+
+            close = addBouton(screen, None, 'back', 15, 15, 30, 30)
+            menu = addBouton(screen, "Menu", None, constant.WIDTH // 2 - 200, 400, 400, 50)
+
+            if isSoundOn():
+                sound = addBouton(screen, "SFX", "vol", constant.WIDTH // 2 - 100, 150, 50, 50)
+            else:
+                sound = addBouton(screen, "SFX", "mute_vol", constant.WIDTH // 2 - 100, 150, 50, 50)
+
+            if isMusicOn():
+                music = addBouton(screen, "Musique", "music", constant.WIDTH // 2 + 50, 150, 50, 50)
+            else:
+                music = addBouton(screen, "Musique", "mute_music", constant.WIDTH // 2 + 50, 150, 50, 50)
+
+            bug1 = pygame.image.load("../assets/bigBug.png")
+            bug1 = pygame.transform.rotate(bug1, -90)
+
+            screen.blit(bug1, (120, 200))
+            screen.blit(bug1, (740, 200))
+            screen.blit(bug1, (120, 500))
+            screen.blit(bug1, (740, 500))
+
+            pygame.display.flip()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -50,7 +59,9 @@ class Settings:
                         running = False
 
                     elif sound.collidepoint(pos):
-                        print('a faire desactiver le son')
+                        toggleSound()
 
                     elif music.collidepoint(pos):
-                        print('a faire desactiver la musique')
+                        toggleMusic()
+
+            clock.tick(constant.FPS)

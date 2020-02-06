@@ -1,28 +1,12 @@
 {
-  "score": [
-    {
-      "name" :  "Az",
-      "highscore" : 3500
-    },
-    {
-      "name" :  "Er",
-      "highscore" : 8500
-    },
-    {
-      "name" :  "Ty",
-      "highscore" : 500
-    },
-    {
-      "name" :  "Ui",
-      "highscore" : 300
-    },
-    {
-      "name" :  "Op",
-      "highscore" : 35
-    },
-    {
-      "name" :  "Qs",
-      "highscore" : 350
-    }
-  ]
+    "score": [
+        {
+            "name": "Julien",
+            "highscore": 100
+        },
+        {
+            "name": "Az",
+            "highscore": 20
+        }
+    ]
 }

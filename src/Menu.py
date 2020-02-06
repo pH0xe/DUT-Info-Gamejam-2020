@@ -14,21 +14,18 @@ class Menu:
     def startMenu(self, screen):
         screen.blit(self.bg, self.rect)
 
-       ##titre du menu
+       #titre du menu
         font = pygame.font.SysFont('Helvetic', 80)
 
         name = pygame.image.load("../assets/name/name.png")
         screen.blit(name, (constant.WIDTH // 2 - name.get_rect().width // 2, 100 - name.get_rect().height // 2))
 
-        text_1 = font.render("Menu", 1, (255, 255, 255))
-        #text_1_pos = (constant.WIDTH // 2 - text_1.get_rect().width // 2, 100 - text_1.get_rect().height // 2)
-        #screen.blit(text_1, text_1_pos)
-
         play = addBouton(screen, "Jouer", None, constant.WIDTH // 2 - 200, 200, 400, 50)
-        instruction = addBouton(screen, "Comment jouer ?", None, constant.WIDTH // 2 - 200, 300, 400, 50)
-        high = addBouton(screen, "High-Score", None, constant.WIDTH // 2 - 200, 400, 400, 50)
-        settings = addBouton(screen, "Paramètres", None, constant.WIDTH // 2 - 200, 500, 400, 50)
-        credits = addBouton(screen, "Crédits", None, constant.WIDTH // 2 - 200, 600, 400, 50)
+        instruction = addBouton(screen, "Comment jouer ?", None, constant.WIDTH // 2 - 200, 275, 400, 50)
+        high = addBouton(screen, "High-Score", None, constant.WIDTH // 2 - 200, 350, 400, 50)
+        settings = addBouton(screen, "Paramètres", None, constant.WIDTH // 2 - 200, 425, 400, 50)
+        credits = addBouton(screen, "Crédits", None, constant.WIDTH // 2 - 200, 500, 400, 50)
+        close = addBouton(screen, "Fermer", None, constant.WIDTH // 2 - 200, 575, 400, 50)
 
         pygame.display.flip()
 
@@ -65,5 +62,9 @@ class Menu:
 
                     elif credits.collidepoint(pos):
                         windowstate.credits = True
+                        windowstate.menu = False
+                        running = False
+
+                    elif close.collidepoint(pos):
                         windowstate.menu = False
                         running = False
