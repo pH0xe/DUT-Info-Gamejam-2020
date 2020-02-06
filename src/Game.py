@@ -31,7 +31,7 @@ class Game:
 
         self.power = []
         for i in range(1,12):
-            self.power.append(pygame.image.load('../assets/HUD/power' + str(i) + '.png').convert_alpha())
+            self.power.append(pygame.image.load('assets/HUD/power' + str(i) + '.png').convert_alpha())
         self.powerRect = self.power[0].get_rect()
         self.powerRect.x = 25
         self.powerRect.y = 600
@@ -154,7 +154,7 @@ class Game:
                     text_bonus = font.render("BONUS", 1, constant.GREEN)
                     text_bonus_pos = (60, 520)
                     screen.blit(text_bonus, text_bonus_pos)
-                    space = pygame.image.load('../assets/HUD/space.png').convert_alpha()
+                    space = pygame.image.load('assets/HUD/space.png').convert_alpha()
                     space_rect = space.get_rect()
                     space_rect.x = 40
                     space_rect.y = 540
@@ -167,7 +167,7 @@ class Game:
                     text_bonus = font.render("BONUS", 1, constant.GREEN)
                     text_bonus_pos = (constant.WIDTH // 2 + 60, 520)
                     screen.blit(text_bonus, text_bonus_pos)
-                    space = pygame.image.load('../assets/HUD/enter.png').convert_alpha()
+                    space = pygame.image.load('assets/HUD/enter.png').convert_alpha()
                     space_rect = space.get_rect()
                     space_rect.x = constant.WIDTH // 2 + 80
                     space_rect.y = 540
