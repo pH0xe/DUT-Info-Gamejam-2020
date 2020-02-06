@@ -39,6 +39,15 @@ class Game:
         self.powerRect2.x = constant.WIDTH//2 + 25
         self.powerRect2.y = 600
 
+        self.invasion = pygame.image.load('assets/HUD/invasion.png').convert_alpha()
+        self.invasionRect = self.invasion.get_rect()
+        self.invasionRect.x = 90
+        self.invasionRect.y = 610
+        self.invasionRect2 = self.invasion.get_rect()
+        self.invasionRect2.x = constant.WIDTH // 2 + 90
+        self.invasionRect2.y = 610
+
+
         self.windLeft = getSpriteWindLeft()
         self.windRight = getSpriteWindRight()
 
@@ -133,12 +142,18 @@ class Game:
                 # Affichage de la combinaison et du score actuel
                 font = pygame.font.Font(None, 40)
                 for pl in self.players:
-                    number = 0
+                    if(pl.malus[3]):
+                        number = 3
+                    else:
+                      number = 0
                     # Affichage de la combinaison
                     for key in pl.combi.goal:
                         pos = pl.pos[0] + number * 80, pl.pos[1]
                         screen.blit(key, pos)
-                        number += 1
+                        if (pl.malus[3]):
+                            number -= 1
+                        else:
+                            number += 1
                     # affichage du score
                     text = font.render("Score actuel : " + str(pl.combi.score), 1, (255, 255, 255))
                     screen.blit(text, pl.scorePos)
@@ -150,6 +165,56 @@ class Game:
 
                 screen.blit(self.power[self.player1.bonus*2], self.powerRect)
                 screen.blit(self.power[self.player2.bonus*2], self.powerRect2)
+
+                if self.player1.malus[1]:
+                    screen.blit(self.invasion, self.invasionRect)
+                if self.player2.malus[1]:
+                    screen.blit(self.invasion, self.invasionRect2)
+
+                if self.player1.malus[2]:
+                    self.player1.temps += 1
+                    if self.player1.temps >= 0 and self.player1.temps < 15:
+                        text_temps = font.render("3", 1, constant.RED)
+                        text_temps_pos = (constant.WIDTH // 4 + 130, 560)
+                        screen.blit(text_temps, text_temps_pos)
+                    elif self.player1.temps >= 15 and self.player1.temps < 30:
+                        text_temps = font.render("2", 1, constant.RED)
+                        text_temps_pos = (constant.WIDTH // 4 + 130, 560)
+                        screen.blit(text_temps, text_temps_pos)
+                    elif self.player1.temps >= 30 and self.player1.temps < 45:
+                        text_temps = font.render("1", 1, constant.RED)
+                        text_temps_pos = (constant.WIDTH // 4 + 130, 560)
+                        screen.blit(text_temps, text_temps_pos)
+                    elif self.player1.temps == 45:
+                        self.player1.combi.newRandom(4)
+                        self.player1.temps = -1
+                        error = pygame.mixer.Sound('assets/sound/error.ogg')
+                        error.set_volume(0.02)
+                        if isSoundOn():
+                            error.play()
+
+                if self.player2.malus[2]:
+                    self.player2.temps += 1
+                    if self.player2.temps >= 0 and self.player2.temps < 15:
+                        text_temps = font.render("3", 1, constant.RED)
+                        text_temps_pos = (3 * constant.WIDTH // 4 + 130, 560)
+                        screen.blit(text_temps, text_temps_pos)
+                    elif self.player2.temps >= 15 and self.player2.temps < 30:
+                        text_temps = font.render("2", 1, constant.RED)
+                        text_temps_pos = (3 * constant.WIDTH // 4 + 130, 560)
+                        screen.blit(text_temps, text_temps_pos)
+                    elif self.player2.temps >= 30 and self.player2.temps < 45:
+                        text_temps = font.render("1", 1, constant.RED)
+                        text_temps_pos = (3 * constant.WIDTH // 4 + 130, 560)
+                        screen.blit(text_temps, text_temps_pos)
+                    elif self.player2.temps == 45:
+                        self.player2.combi.newRandom(4)
+                        self.player2.temps = -1
+                        error = pygame.mixer.Sound('assets/sound/error.ogg')
+                        error.set_volume(0.02)
+                        if isSoundOn():
+                            error.play()
+
                 if self.player1.success >= 3:
                     text_bonus = font.render("BONUS", 1, constant.GREEN)
                     text_bonus_pos = (60, 520)
@@ -176,7 +241,7 @@ class Game:
                     text_nombre_pos = (constant.WIDTH // 2 + 140, 560)
                     screen.blit(text_nombre, text_nombre_pos)
 
-                if self.player1.malus:
+                if self.player1.malus[0]:
                     text_bonus = font.render("MALUS", 1, constant.RED)
                     text_bonus_pos = (constant.WIDTH // 4 + 30, 520)
                     screen.blit(text_bonus, text_bonus_pos)
@@ -184,7 +249,7 @@ class Game:
                     text_nombre_pos = (constant.WIDTH // 4 + 20, 560)
                     screen.blit(text_nombre, text_nombre_pos)
 
-                if self.player2.malus:
+                if self.player2.malus[0]:
                     text_bonus = font.render("MALUS", 1, constant.RED)
                     text_bonus_pos = (3 * constant.WIDTH // 4 + 30, 520)
                     screen.blit(text_bonus, text_bonus_pos)
@@ -192,6 +257,53 @@ class Game:
                     text_nombre_pos = (3 * constant.WIDTH // 4 + 20, 560)
                     screen.blit(text_nombre, text_nombre_pos)
 
+                if self.player1.malus[1]:
+                    text_bonus = font.render("MALUS", 1, constant.RED)
+                    text_bonus_pos = (constant.WIDTH // 4 + 30, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    text_nombre = font.render("Invasion !", 1, constant.RED)
+                    text_nombre_pos = (constant.WIDTH // 4 + 20, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
+
+                if self.player2.malus[1]:
+                    text_bonus = font.render("MALUS", 1, constant.RED)
+                    text_bonus_pos = (3 * constant.WIDTH // 4 + 30, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    text_nombre = font.render("Invasion !", 1, constant.RED)
+                    text_nombre_pos = (3 * constant.WIDTH // 4 + 20, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
+
+                if self.player1.malus[2]:
+                    text_bonus = font.render("MALUS", 1, constant.RED)
+                    text_bonus_pos = (constant.WIDTH // 4 + 30, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    text_nombre = font.render("Temps :", 1, constant.RED)
+                    text_nombre_pos = (constant.WIDTH // 4 + 20, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
+
+                if self.player2.malus[2]:
+                    text_bonus = font.render("MALUS", 1, constant.RED)
+                    text_bonus_pos = (3 * constant.WIDTH // 4 + 30, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    text_nombre = font.render("Temps :", 1, constant.RED)
+                    text_nombre_pos = (3 * constant.WIDTH // 4 + 20, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
+
+                if self.player1.malus[3]:
+                    text_bonus = font.render("MALUS", 1, constant.RED)
+                    text_bonus_pos = (constant.WIDTH // 4 + 30, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    text_nombre = font.render("Miroir", 1, constant.RED)
+                    text_nombre_pos = (constant.WIDTH // 4 + 20, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
+
+                if self.player2.malus[3]:
+                    text_bonus = font.render("MALUS", 1, constant.RED)
+                    text_bonus_pos = (3 * constant.WIDTH // 4 + 30, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    text_nombre = font.render("Miroir", 1, constant.RED)
+                    text_nombre_pos = (3 * constant.WIDTH // 4 + 20, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
 
             # Animation de mec qui souffle pour le joueur 1
             if isBlow1:
@@ -277,7 +389,7 @@ class Game:
                                 count = i  # On prend le numéro du joueur dans players à qui appartient la touche
                             i += 1
                     if count != -1:  # Si la touche appartient à un joueur, alors on appelle tried pour essayé la combinaison
-                        if self.players[count].malus:
+                        if self.players[count].malus[0]:
                             key = self.players[count].combi.reverse(key)
                         self.players[count].combi.tried(key)
                         if self.players[count].combi.state == -1:
@@ -287,6 +399,7 @@ class Game:
                                 error.play()
                             self.players[count].success = 0
                             self.players[count].combi.newRandom(4)  # newRandom(4) 4 = taille de la combinaison à changer
+                            self.players[count].temps = -1
                         elif self.players[count].combi.state == 1:
                             if count == 1:
                                 isBlow2 = True
@@ -296,10 +409,12 @@ class Game:
                             blow.set_volume(0.4)
                             if isSoundOn():
                                 blow.play()
-                            if not self.players[(count +1) % 2].malus:
+                            if not self.players[(count +1) % 2].haveMalus():
                                 self.players[count].success += 1
-                            self.players[count].malus = False
-                            self.players[(count + 1) % 2].bonus = 0
+                            if self.players[count].haveMalus():
+                                self.players[(count + 1) % 2].bonus = 0
+                                self.players[count].malus[self.players[count].whichMalus()] = False
+                            self.players[count].temps = -1
 
                             self.players[count].combi.newRandom(4)
                             if count == 0:

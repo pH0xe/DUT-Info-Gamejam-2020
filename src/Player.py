@@ -22,8 +22,10 @@ class Player(pygame.sprite.Sprite):
         self.nameid = "constant.NAME" + str(number) + "POS"
         self.namePos = eval(self.nameid)
         self.success = 0
-        self.malus = False  # liste des malus : activé si True
-        self.bonus = 0 # donne un malus si egal à 5
+        self.malus = [False, False, False, False]  # liste des malus : malus[0] = inversion, malus[1] = invasion, malus[2] = chrono, malus[3] = miroir
+        self.bonus = 0  # donne un malus si egal à 5
+        self.temps = 0
+        self.last = -1
 
         self.images = []
         self.setRandomHead()
@@ -86,4 +88,24 @@ class Player(pygame.sprite.Sprite):
                 self.rect.x -= self.velocity[1]
 
     def addRandomMalus(self):
-        self.malus = True
+        rand = random.randrange(0, len(self.malus))
+        while(rand == self.last):
+            rand = random.randrange(0, len(self.malus))
+        self.malus[rand] = True
+        self.last = rand
+
+    def haveMalus(self):
+        malus = False
+        for i in self.malus:
+            if i:
+                malus = True
+        return malus
+
+    def whichMalus(self):
+        malus = -1
+        count = 0
+        for i in self.malus:
+            if i:
+                malus = count
+            count += 1
+        return malus
