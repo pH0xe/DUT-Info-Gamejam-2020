@@ -62,3 +62,20 @@ class Combination(object):
             self.state = -1
             self.score -= 10
 
+    def reverse(self, car):
+        if car == K_z:
+            return K_s
+        elif car == K_s:
+            return K_z
+        elif car == K_q:
+            return K_d
+        elif car == K_d:
+            return K_q
+        elif car == K_UP:
+            return K_DOWN
+        elif car == K_DOWN:
+            return K_UP
+        elif car == K_LEFT:
+            return K_RIGHT
+        elif car == K_RIGHT:
+            return K_LEFT
