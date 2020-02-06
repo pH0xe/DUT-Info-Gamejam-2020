@@ -35,6 +35,12 @@ class Game:
     def startGame(self, screen):
         clock = pygame.time.Clock()
 
+        if windowstate.isBlanchon1:
+            self.player1.setBlanchonHead()
+
+        if windowstate.isBlanchon2:
+            self.player2.setBlanchonHead()
+
         for player in self.players:
             player.combi.newRandom(4)
         count = -1

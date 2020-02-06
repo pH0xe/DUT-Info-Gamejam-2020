@@ -35,7 +35,7 @@ class HighScore:
 
             text_score = font.render(str(joueur['highscore']), 1, constant.WHITE)
             rect_score = text_score.get_rect()
-            rect_score.x = rect_nom.left + 100
+            rect_score.x = rect_nom.x + 300
             rect_score.y = rect_nom.y
 
             y += 100
