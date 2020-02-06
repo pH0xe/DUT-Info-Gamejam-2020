@@ -29,6 +29,16 @@ class Game:
         self.bg = pygame.transform.scale(self.bg, constant.SCREEN_SIZE)
         self.rect = self.bg.get_rect()
 
+        self.power = []
+        for i in range(1,12):
+            self.power.append(pygame.image.load('../assets/HUD/power' + str(i) + '.png').convert_alpha())
+        self.powerRect = self.power[0].get_rect()
+        self.powerRect.x = 25
+        self.powerRect.y = 600
+        self.powerRect2 = self.power[0].get_rect()
+        self.powerRect2.x = constant.WIDTH//2 + 25
+        self.powerRect2.y = 600
+
         self.windLeft = getSpriteWindLeft()
         self.windRight = getSpriteWindRight()
 
@@ -125,9 +135,54 @@ class Game:
                     text = font.render("Score actuel : " + str(pl.combi.score), 1, (255, 255, 255))
                     screen.blit(text, pl.scorePos)
                     # affichage du nom du joueur
-                    text = font.render(pl.name, 1, constant.WHITE)
+                    text = font.render(pl.name, 1, constant.BLACK)
 
                     screen.blit(text, pl.namePos)
+
+
+                screen.blit(self.power[self.player1.bonus*2], self.powerRect)
+                screen.blit(self.power[self.player2.bonus*2], self.powerRect2)
+                if self.player1.success >= 3:
+                    text_bonus = font.render("BONUS", 1, constant.GREEN)
+                    text_bonus_pos = (60, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    space = pygame.image.load('../assets/HUD/space.png').convert_alpha()
+                    space_rect = space.get_rect()
+                    space_rect.x = 40
+                    space_rect.y = 540
+                    screen.blit(space, space_rect)
+                    text_nombre = font.render("x5", 1, constant.GREEN)
+                    text_nombre_pos = (170, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
+
+                if self.player2.success >= 3:
+                    text_bonus = font.render("BONUS", 1, constant.GREEN)
+                    text_bonus_pos = (constant.WIDTH // 2 + 60, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    space = pygame.image.load('../assets/HUD/enter.png').convert_alpha()
+                    space_rect = space.get_rect()
+                    space_rect.x = constant.WIDTH // 2 + 80
+                    space_rect.y = 540
+                    screen.blit(space, space_rect)
+                    text_nombre = font.render("x5", 1, constant.GREEN)
+                    text_nombre_pos = (constant.WIDTH // 2 + 140, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
+
+                if self.player1.malus:
+                    text_bonus = font.render("MALUS", 1, constant.RED)
+                    text_bonus_pos = (constant.WIDTH // 4 + 30, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    text_nombre = font.render("Inversion !", 1, constant.RED)
+                    text_nombre_pos = (constant.WIDTH // 4 + 20, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
+
+                if self.player2.malus:
+                    text_bonus = font.render("MALUS", 1, constant.RED)
+                    text_bonus_pos = (3 * constant.WIDTH // 4 + 30, 520)
+                    screen.blit(text_bonus, text_bonus_pos)
+                    text_nombre = font.render("Inversion !", 1, constant.RED)
+                    text_nombre_pos = (3 * constant.WIDTH // 4 + 20, 560)
+                    screen.blit(text_nombre, text_nombre_pos)
 
 
             # Animation de mec qui souffle pour le joueur 1
@@ -184,24 +239,6 @@ class Game:
                     windRect2.y = 350
                     screen.blit(self.windRight[blowCount2-13], windRect2)
 
-
-                if self.player1.success >= 3:
-                    text_bonus = font.render(msg_bonus[0], 1, constant.GREEN)
-                    text_bonus_pos = (constant.WIDTH // 4 - text_bonus.get_rect().width // 2, 300)
-                    screen.blit(text_bonus, text_bonus_pos)
-                elif self.player2.success >= 3:
-                    text_bonus = font.render(msg_bonus[1], 1, constant.GREEN)
-                    text_bonus_pos = (3 * constant.WIDTH // 4 - text_bonus.get_rect().width // 2, 300)
-                    screen.blit(text_bonus, text_bonus_pos)
-                if self.player1.malus:
-                    text_malus = font.render(msg_malus, 1, constant.RED)
-                    text_malus_pos = (constant.WIDTH // 4 - text_malus.get_rect().width // 2, 350)
-                    screen.blit(text_malus, text_malus_pos)
-                elif self.player2.malus:
-                    text_malus = font.render(msg_malus, 1, constant.RED)
-                    text_malus_pos = (3 * constant.WIDTH // 4 - text_malus.get_rect().width // 2, 350)
-                    screen.blit(text_malus, text_malus_pos)
-
             pygame.display.flip()
 
             for event in pygame.event.get():
@@ -217,18 +254,13 @@ class Game:
                         print(self.player1.bonus)
                         if self.player1.bonus == 5:
                             self.player2.addRandomMalus()
-                            self.player2.success = 0
                             self.player1.success = 0
-                            self.player1.bonus = 0
                     elif event.key == pygame.K_RETURN and self.player2.success >= 3:
                         self.player2.bonus += 1
                         print(self.player2.bonus)
                         if self.player2.bonus == 5:
                             self.player1.addRandomMalus()
-                            self.player1.success = 0
                             self.player2.success = 0
-                            self.player2.bonus = 0
-
                     else:
                         for pl in self.players:
                             try:
@@ -258,9 +290,10 @@ class Game:
                             blow.set_volume(0.4)
                             if isSoundOn():
                                 blow.play()
-                            self.players[count].success += 1
-                            if self.players[count].success == 1:
-                                self.players[count].malus = False
+                            if not self.players[(count +1) % 2].malus:
+                                self.players[count].success += 1
+                            self.players[count].malus = False
+                            self.players[(count + 1) % 2].bonus = 0
 
                             self.players[count].combi.newRandom(4)
                             if count == 0:
