@@ -15,8 +15,14 @@ class NamePlayer:
 
     def startNamePlayer(self, screen):
         clock = pygame.time.Clock()
+
+        font = pygame.font.Font(None, 30)
+        text = font.render("Vous n'avez pas rentré tous les noms", 1, constant.RED)
+        text_pos = (constant.WIDTH // 2 - text.get_rect().width // 2, constant.HEIGHT - 150)
+
         font = pygame.font.Font(None, 50)
 
+        isempty = False
         running = True
         while running:
 
@@ -37,6 +43,9 @@ class NamePlayer:
 
             play = addBouton(screen, 'Commencer', None, constant.WIDTH // 2 - 200, constant.HEIGHT - 100, 400, 50)
             menu = addBouton(screen, None, 'back', 5, 5, 30, 30)
+
+            if isempty:
+                screen.blit(text, text_pos)
 
             pygame.display.flip()
             for event in pygame.event.get():
@@ -63,6 +72,10 @@ class NamePlayer:
                             windowstate.name2 = self.inputBox2.text
                             windowstate.play = True
                             windowstate.playerName = False
+                            isempty = False
                             running = False
+                        else:
+                            isempty = True
+
 
             clock.tick(constant.FPS)
