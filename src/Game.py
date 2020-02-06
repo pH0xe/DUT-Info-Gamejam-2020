@@ -259,13 +259,11 @@ class Game:
                     # Si c'est une touche du clavier, alors on regarde si elle est parmis les touches possibles des joueurs
                     if event.key == pygame.K_SPACE and self.player1.success >= 3:
                         self.player1.bonus += 1
-                        print(self.player1.bonus)
                         if self.player1.bonus == 5:
                             self.player2.addRandomMalus()
                             self.player1.success = 0
                     elif event.key == pygame.K_RETURN and self.player2.success >= 3:
                         self.player2.bonus += 1
-                        print(self.player2.bonus)
                         if self.player2.bonus == 5:
                             self.player1.addRandomMalus()
                             self.player2.success = 0
